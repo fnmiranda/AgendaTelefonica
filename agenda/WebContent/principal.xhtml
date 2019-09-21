@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition template="template.xhtml">
+
+	<ui:define name="titulo">
+		<p:outputPanel>Lista Telefônica</p:outputPanel>
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form id="dadosContato">
+			<p:messages id="messages" />
+
+			<b:panel title="Dados do Contato" look="success">
+				<b:container>
+					<b:row>
+						<b:column medium-screen="2">
+							<p:outputLabel value="Nome:" for="nome" />
+						</b:column>
+						<b:column medium-screen="2">
+							<p:outputLabel value="Data:" for="data" />
+						</b:column>
+						<b:column medium-screen="2">
+							<p:outputLabel value="Telefone:" for="telefone" />
+						</b:column>
+						<b:column medium-screen="2">
+							<p:outputLabel value="Email:" for="email" />
+						</b:column>
+						<b:column medium-screen="4">
+							<p:outputLabel value="Descrição:" for="descricao" />
+						</b:column>
+					</b:row>
+					<b:row>
+						<b:column medium-screen="2">
+							<p:inputText id="nome" value="#{principalBean.contato.nome}"
+								required="true" requiredMessage="Nome Obrigatório!">
+								<f:passThroughAttribute name="placeholder"
+									value="Nome do Contato" />
+								<f:ajax event="blur" render="messages" />
+							</p:inputText>
+						</b:column>
+						<b:column medium-screen="2">
+							<p:calendar id="data" value="#{principalBean.contato.data.time}"
+								pattern="dd/MM/yyyy" mask="true" timeZone="America/Sao_Paulo"
+								locale="pt_BR" required="true"
+								requiredMessage="Data Obrigatória!" />
+						</b:column>
+						<b:column medium-screen="2">
+							<p:inputMask id="telefone" required="true"
+								value="#{principalBean.contato.telefone}"
+								mask="(99) 9 9999-9999" />
+						</b:column>
+						<b:column medium-screen="2">
+							<p:inputText id="email" value="#{principalBean.contato.email}" />
+						</b:column>
+						<b:column medium-screen="4">
+							<p:inputTextarea id="descricao" autoResize="false" rows="1"
+								cols="45" value="#{principalBean.contato.conteudo}" />
+						</b:column>
+					</b:row>
+					<b:row>
+						<b:column medium-screen="12">
+						<p:commandButton value="Salvar Contato"
+							action="#{principalBean.salvarContatos}" process="@form"
+							update="@form :formTabelaContatos:tabelaContatos" />
+						</b:column>
+					</b:row>
+				</b:container>
+			</b:panel>
+		</h:form>
+
+		<br />
+		<br />
+		<h:form id="formTabelaContatos">
+
+			<p:dataTable value="#{principalBean.contatos}" var="contato"
+				id="tabelaContatos" paginator="true" rows="5"
+				widgetVar="contatosTable"
+				filteredValue="#{principalBean.contatosFiltrados}">
+				<f:facet name="header">Contatos Salvos</f:facet>
+
+				<f:facet name="header">
+					<p:outputPanel>
+						<h:outputText value="Localizar:" />
+						<p:inputText id="globalFilter"
+							onkeyup="PF('contatosTable').filter()" style="width:170px"
+							placeholder="Digite para pesquisar" />
+					</p:outputPanel>
+				</f:facet>
+
+				<p:column filterBy="#{contato.nome}" filterMatchMode="contains">
+					<f:facet name="header">Nome</f:facet>
+					<h:outputText value="#{contato.nome}" />
+				</p:column>
+				<p:column filterBy="#{contato.telefone}" filterMatchMode="contains">
+					<f:facet name="header">Telefone</f:facet>
+					<h:outputText value="#{contato.telefone}" />
+				</p:column>
+				<p:column sortBy="#{contato.data}" filterBy="#{contato.data.time}"
+					filterMatchMode="contains">
+					<f:facet name="header">Data</f:facet>
+					<h:outputText value="#{contato.data.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<f:facet name="header">Alterar</f:facet>
+					<p:commandButton icon="fa fa-fw fa-edit" value="alterar"
+						update=":dadosContato"
+						actionListener="#{principalBean.carregarContato(contato)}" />
+				</p:column>
+				<p:column headerText="Remover">
+					<p:commandButton update="@form" process="@this" value="remover"
+						actionListener="#{principalBean.removerContato(contato)}"
+						icon="fa fa-fw fa-remove" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+
+</html>

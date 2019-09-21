@@ -1,0 +1,6 @@
+.cancelado {
+    background-color: red !important;
+}
+.urgente {
+    background-color: green !important;
+}

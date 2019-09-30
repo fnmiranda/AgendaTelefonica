@@ -59,13 +59,13 @@
 							<p:inputText id="email" value="#{principalBean.contato.email}" />
 						</b:column>
 						<b:column medium-screen="4">
-							<p:inputTextarea id="descricao" autoResize="false" rows="1"
+							<p:inputTextarea id="descricao" autoResize="true" rows="1"
 								cols="45" value="#{principalBean.contato.conteudo}" />
 						</b:column>
 					</b:row>
 					<b:row>
 						<b:column medium-screen="12">
-						<p:commandButton value="Salvar Contato"
+						<b:commandButton value="Salvar Contato" look="success" 
 							action="#{principalBean.salvarContatos}" process="@form"
 							update="@form :formTabelaContatos:tabelaContatos" />
 						</b:column>

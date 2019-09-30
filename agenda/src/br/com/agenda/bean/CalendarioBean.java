@@ -65,14 +65,12 @@ public class CalendarioBean implements Serializable {
 	            for (Evento eventoAtual : eventos) {
 	                ScheduleEvent newEvent = new CustomScheduleEvent(eventoAtual.getTitulo(), eventoAtual.getDataInicio(), eventoAtual.getDataFim(), eventoAtual.getTipoEvento().getCss(), eventoAtual.isDiaInteiro(), eventoAtual);
 	                if (!this.scheduleEvents.contains(newEvent)) {
-	                //	System.out.println("Titulo: " + eventoAtual.getDataFim().toString());
 	                    newEvent.setId(eventoAtual.getId().toString());
 	                    this.scheduleEvents.add(newEvent);
 	                    this.model.addEvent(newEvent);
 	                }
 	            }
             }
-            
         }
     }
 

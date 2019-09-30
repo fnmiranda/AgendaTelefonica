@@ -9,27 +9,54 @@
 
 <ui:composition template="template.xhtml">
 	<ui:define name="titulo">
-		<p:outputPanel>Usuário Editor</p:outputPanel>
+		<p:outputPanel>Editar informações de Usuário</p:outputPanel>
 	</ui:define>
 	<ui:define name="conteudo">
+		<p:growl id="avisosGrowl" />
 		<h:form>
-			<p:dataView var="usuario"
-				value="#{usuarioEditorBean.listarDadosDeUsuario}">
-				<p:dataViewGridItem>
-					<p:panel header="#{usuario.id}" style="text-align:center">
-						<h:panelGrid columns="2" cellpadding="5">
-							
-							<p:outputLabel value="Nome: " />
-							<p:outputLabel value="#{usuario.nome}" />
-							<p:outputLabel value="Email: " />
-							<p:outputLabel value="#{usuario.email}" />
-							<p:outputLabel value="Senha: " />
-							<p:outputLabel value="#{usuario.senha}" />
-						</h:panelGrid>
-					</p:panel>
-				</p:dataViewGridItem>
-			</p:dataView>
+			<p:dataScroller chunkSize="10" value="#{usuarioEditorBean.usuario}"
+				var="usuario">
+				<f:facet name="header">
+					Dados do Usuário
+				</f:facet>
 
+				<b:container>
+					<b:row>
+						<b:column medium-screen="7">
+							<p:outputPanel header="#{usuario.id}" style="text-align:left">
+								<b:panelGrid columns="3" >
+
+									<p:outputLabel value="Nome: " />
+									<p:outputLabel value="Email: " />
+									<p:outputLabel value="Senha: " />
+									<b:inputText value="#{usuario.nome}"
+										disabled="#{usuarioEditorBean.edicao}" />
+									<b:inputText value="#{usuario.email}" id="email" size="22"
+										disabled="#{usuarioEditorBean.edicao}">
+										<p:ajax event="keyup" update="email" />
+									</b:inputText>
+									<b:inputText value="#{usuario.senha}"
+										disabled="#{usuarioEditorBean.edicao}" />
+										
+									<p:commandButton disabled="#{usuarioEditorBean.edicaoInput}"
+										value="Editar Usuário" 
+										action="#{usuarioEditorBean.editarDadosDoUsuario}"
+										update="@form" process="@form">
+									</p:commandButton>
+									<p:commandButton id="salvarBt"
+										disabled="#{usuarioEditorBean.edicao}"
+										value="Salvar Alterações">
+										<p:ajax listener="#{usuarioEditorBean.salvar}" update="@form"
+											process="@form :#{p:component('avisosGrowl')}" />
+									</p:commandButton>
+								</b:panelGrid>
+								
+								
+							</p:outputPanel>
+						</b:column>
+					</b:row>
+				</b:container>
+			</p:dataScroller>
 
 		</h:form>
 

@@ -1,8 +1,8 @@
 package br.com.agenda.dao;
 
 import java.io.Serializable;
-import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -15,6 +15,13 @@ public class UsuarioBD implements Serializable{
 	
 	@Inject
 	EntityManager em;
+	
+	DAO<Usuario> dao;
+	
+	@PostConstruct
+	void init() {
+		this.dao = new DAO<Usuario>(this.em, Usuario.class);
+	}
 	
 	public Usuario existeUsuario(Usuario usuario) {
 		TypedQuery<Usuario> query = em.createQuery("select u from Usuario u "
@@ -33,6 +40,10 @@ public class UsuarioBD implements Serializable{
 			return null;
 		}
 		
+	}
+
+	public void atualiza(Usuario usuario) {
+		dao.atualiza(usuario);
 	}
 	
 }

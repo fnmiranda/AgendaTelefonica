@@ -9,54 +9,55 @@
 
 <ui:composition template="template.xhtml">
 	<ui:define name="titulo">
-		
-	</ui:define>
-	
-	<ui:define name="conteudo">
-		<h:outputStylesheet library="css" name="material.css"/>
-		<h:outputScript library="js" name="material.js"/>
-		<h:outputStylesheet library="css" name="material.min.css"/>
-		<h:outputScript library="js" name="material.min.js"/>	
 
-		
-		<p:dialog visible="true" width="340" height="380" showHeader="false"
-			modal="false" resizable="false">
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:outputStylesheet library="css" name="material.css" />
+		<h:outputScript library="js" name="material.js" />
+		<h:outputStylesheet library="css" name="material.min.css" />
+		<h:outputScript library="js" name="material.min.js" />
+
+
+		<p:dialog visible="true" width="340" height="380"
+			header="Acessar sua conta:" showHeader="true"
+			resizable="false">
 			<h:panelGrid style="margin: 0 auto;">
 				<h:outputText styleClass="fa fa-lock fa-5x" />
 			</h:panelGrid>
-			
+
 			<h:form id="formLogin">
-			   Digite seu Email e Senha para ter acesso ao sistema:
-			                            
-               <b:messages id="messagesLogin" />
-               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+
+				<b:messages id="messagesLogin" />
+				<div
+					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<p:inputText id="email" value="#{loginBean.usuario.email}"
 						size="33" required="true" validatorMessage="Email Invalido"
-						requiredMessage="Campo Login é obrigatório" 
 						styleClass="mdl-textfield__input">
 						<f:validateRegex pattern=".+@.+" />
-						<f:ajax event="blur" render="messagesLogin"/>
 					</p:inputText>
-					<p:outputLabel styleClass="mdl-textfield__label" value="Email" for="email"/>
+					<p:outputLabel styleClass="mdl-textfield__label" value="Email"
+						for="email" />
 				</div>
-				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<p:password id="senha" value="#{loginBean.usuario.senha}"
-						size="33" required="true" feedback="true"
-						requiredMessage="Campo Senha é obrigatório" 
-						styleClass="mdl-textfield__input"/>
-					<p:outputLabel styleClass="mdl-textfield__label" value="Senha" for="senha"/>
+				<div
+					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<p:password id="senha" value="#{loginBean.usuario.senha}" size="33"
+						required="true" feedback="true" styleClass="mdl-textfield__input" />
+					<p:outputLabel styleClass="mdl-textfield__label" value="Senha"
+						for="senha" />
 				</div>
-			
-				<p:commandButton value="Log In" action="#{loginBean.efetuarLogin}" update="messagesLogin"
-				 styleClass="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
-			
-				<p:commandLink value="ou Cadastrar-se" action="#{loginBean.cadastrarNovoUsuario}" process="@this"  
-				style="position:absolute; right:10px;"/>
+
+				<b:panelGrid columns="1">
+					<b:commandButton value="Log In" action="#{loginBean.efetuarLogin}"
+						update="messagesLogin" look="success"
+						styleClass="mdl-button mdl-js-button mdl-button--raised"
+						col-md="13" />
+
+					<p:commandLink value="ou Cadastrar-se"
+						action="#{loginBean.cadastrarNovoUsuario}" process="@this" />
+				</b:panelGrid>
 			</h:form>
 		</p:dialog>
-
-
-
 	</ui:define>
 </ui:composition>
 </html>

@@ -9,46 +9,66 @@
 
 <ui:composition template="template.xhtml">
 	<ui:define name="titulo">
-		<p:outputPanel> Agenda</p:outputPanel>
+		<p:outputPanel> Agenda Telefonica</p:outputPanel>
 	</ui:define>
+
 	<ui:define name="conteudo">
+		<br />
 		<h:outputStylesheet library="css" name="schedule.css" />
 		<p:growl id="avisosGrowl" />
 
-
 		<b:panelGrid col-spans="2,8,2">
-			<h:form id="formTabelaNotas">
-				<p:datePicker inline="true" />
-			</h:form>
-
-			<h:form id="scheduleForm">
-			<div align="center">
-				<p:schedule value="#{calendarioBean.model}" widgetVar="schedule"
-					id="schedule" timeZone="America/Fortaleza" locale="pt_BR"
-					view="month" timeFormat="HH:mm" minTime="00:00" axisFormat="H:mm"
-					maxTime="19:00" style="width: 800px; height: 600px;">
+			<h:form id="formDatePicker">
+				<p:datePicker inline="true">
 					<p:ajax event="dateSelect"
 						listener="#{calendarioBean.onDateSelect}"
 						update="#{p:component('scheduleFormDialog')}"
 						oncomplete="PF('eventDialog').show();" />
-					<p:ajax event="eventSelect"
-						listener="#{calendarioBean.onEventSelect}"
-						update="#{p:component('scheduleFormDialog')}"
-						oncomplete="PF('eventDialog').show();" />
-				</p:schedule>
+				</p:datePicker>
+			</h:form>
+
+			<h:form id="scheduleForm">
+				<div align="center">
+					<p:schedule value="#{calendarioBean.model}" widgetVar="schedule"
+						id="schedule" timeZone="America/Fortaleza" locale="pt_BR"
+						view="month" timeFormat="HH:mm" minTime="00:00" axisFormat="H:mm"
+						maxTime="19:00" style="width: 800px; height: 600px;">
+						<p:ajax event="dateSelect"
+							listener="#{calendarioBean.onDateSelect}"
+							update="#{p:component('scheduleFormDialog')}"
+							oncomplete="PF('eventDialog').show();" />
+						<p:ajax event="eventSelect"
+							listener="#{calendarioBean.onEventSelect}"
+							update="#{p:component('scheduleFormDialog')}"
+							oncomplete="PF('eventDialog').show();" />
+					</p:schedule>
 				</div>
 			</h:form>
-			<p:dataTable id="tableNotas" value="#{calendarioBean.listEventos}"
-				var="evento" paginator="true" rows="10" widgetVar="notasTable">
-				<f:facet name="header">Tabela de Anotacões</f:facet>
-				<p:column filterBy="#{evento.titulo}" filterMatchMode="contains">
-					<f:facet name="header">Nome</f:facet>
-					<h:outputText value="#{evento.titulo}" />
-				</p:column>
 
-			</p:dataTable>
+
+			<h:form id="formTabelaNotas">
+				<p:dataTable id="tableNotas" value="#{calendarioBean.listEventos}"
+					styleClass="mdl-data-table mdl-js-data-table" var="evento"
+					paginator="true" rows="10" widgetVar="tableNotas">
+
+					<f:facet name="header">Tabela de Anotacões</f:facet>
+					<p:column filterBy="#{evento.titulo}" filterMatchMode="contains"
+						style="text-align: center">
+						<f:facet name="header">Nome</f:facet>
+						<h:outputText value="#{evento.titulo}" />
+					</p:column>
+					<p:column style="width: 50px">
+						<p:commandButton
+							update="#{p:component('scheduleFormDialog')}"
+							oncomplete="PF('eventDialog').show()" icon="fa fa-fw fa-search"
+							title="View">
+							<f:setPropertyActionListener value="#{evento}"
+								target="#{calendarioBean.evento}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</h:form>
 		</b:panelGrid>
-
 
 
 		<h:form id="scheduleFormDialog">
@@ -80,9 +100,9 @@
 						onclick="PF('eventDialog').hide(); return false;" />
 					<p:commandButton value="Salvar"
 						update="#{p:component('avisosGrowl')},#{p:component('schedule')},#{p:component('tableNotas')},@form"
-						process="@form" action="#{calendarioBean.salvar()}" />
-					<p:commandButton value="Remover"
-						update="#{p:component('avisosGrowl')},#{p:component('schedule')},#{p:component('tableNotas')},@form"
+						process="@form" action="#{calendarioBean.salvar()}"/>
+					<p:commandButton value="Remover" process="@form"
+						update="#{p:component('schedule')},#{p:component('avisosGrowl')},#{p:component('tableNotas')},@form"
 						action="#{calendarioBean.remover()}" />
 				</f:facet>
 			</p:dialog>

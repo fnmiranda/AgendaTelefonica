@@ -32,7 +32,7 @@
 				<div
 					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<p:inputText id="email" value="#{loginBean.usuario.email}"
-						size="33" required="true" validatorMessage="Email Invalido"
+						required="true" validatorMessage="Email Invalido" style="width:102%"
 						styleClass="mdl-textfield__input">
 						<f:validateRegex pattern=".+@.+" />
 					</p:inputText>
@@ -41,14 +41,14 @@
 				</div>
 				<div
 					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<p:password id="senha" value="#{loginBean.usuario.senha}" size="33"
+					<p:password id="senha" value="#{loginBean.usuario.senha}" style="width:102%" 
 						required="true" feedback="true" styleClass="mdl-textfield__input" />
 					<p:outputLabel styleClass="mdl-textfield__label" value="Senha"
 						for="senha" />
 				</div>
 
 				<b:panelGrid columns="1">
-					<b:commandButton value="Log In" action="#{loginBean.efetuarLogin}"
+					<b:commandButton value="Entrar" action="#{loginBean.efetuarLogin}"
 						update="messagesLogin" look="success"
 						styleClass="mdl-button mdl-js-button mdl-button--raised"
 						col-md="13" />

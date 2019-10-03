@@ -26,119 +26,133 @@ import br.com.agenda.modelo.Evento;
 import br.com.agenda.modelo.Usuario;
 import br.com.agenda.tx.Transacional;
 
-
 @Named
 @ViewScoped
 public class CalendarioBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private ScheduleModel model;
-    private Evento evento;
-    private List<Evento> listEventos;
-    private ScheduleEvent event;
-    private List<ScheduleEvent> scheduleEvents;
-    
-    @Inject
-    private EventoBD eventoBD;
-    
-    @Inject
-    private FacesContext context;
-    
-    private static final Logger LOG = Logger.getLogger(CalendarioBean.class.getName());
+	private Evento evento;
+	private List<Evento> eventos;
+	private ScheduleEvent event;
+	private List<ScheduleEvent> scheduleEvents;
 
-    public CalendarioBean() {
-        event = new CustomScheduleEvent();
-        model = new DefaultScheduleModel();
-        evento = new Evento();
-    }
+	@Inject
+	private EventoBD eventoBD;
 
-    @PostConstruct
-    public void init() {
-        if (this.model != null) {
-            List<Evento> eventos = this.eventoBD.listaEventosUser(relacionaUser());
-            this.setListEventos(eventos);
-            if (this.scheduleEvents == null) {
-                this.scheduleEvents = new ArrayList<ScheduleEvent>();
-            }
-            if(eventos != null) {
-	            for (Evento eventoAtual : eventos) {
-	                ScheduleEvent newEvent = new CustomScheduleEvent(eventoAtual.getTitulo(), eventoAtual.getDataInicio(), eventoAtual.getDataFim(), eventoAtual.getTipoEvento().getCss(), eventoAtual.isDiaInteiro(), eventoAtual);
-	                if (!this.scheduleEvents.contains(newEvent)) {
-	                    newEvent.setId(eventoAtual.getId().toString());
-	                    this.scheduleEvents.add(newEvent);
-	                    this.model.addEvent(newEvent);
-	                }
-	            }
-            }
-        }
-    }
+	@Inject
+	private FacesContext context;
 
-    public Evento getEvento() {
-        return evento;
-    }
+	private static final Logger LOG = Logger.getLogger(CalendarioBean.class.getName());
 
-    public void setEvento(Evento evento) {
-        this.evento = evento;
-    }
-    
-    public Usuario relacionaUser() {
-    	Usuario usuario = (Usuario) context.getExternalContext().getSessionMap().get("usuarioLogado");
-    	return usuario;
-    }
+	public CalendarioBean() {
+		event = new CustomScheduleEvent();
+		model = new DefaultScheduleModel();
+		evento = new Evento();
+	}
 
-    @Transacional
-    public void salvar() {
-    	evento.setUsuario(relacionaUser());
-    	ScheduleEvent newEvent = new CustomScheduleEvent(this.evento.getTitulo(), this.evento.getDataInicio(), this.evento.getDataFim(), this.evento.getTipoEvento().getCss(), this.evento.isDiaInteiro(), this.evento);
-        if (evento.getId() == null) {
-            model.addEvent(newEvent);
-            eventoBD.adiciona(evento);
-        } else {
-            newEvent.setId(event.getId());
-            model.updateEvent(newEvent);
-            eventoBD.atualiza(evento);
-        }
-        this.setListEventos(eventoBD.listaEventosUser(relacionaUser()));
-        //System.out.println("user: " + relacionaUser().getNome().toString());
-        
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Evento Salvo", "Evento Salvo");
-        addMessage(message);
-    }
+	@PostConstruct
+	public void init() {
+		if (this.model != null) {
+			eventos = this.eventoBD.listaEventosUser(relacionaUser());
+			if (this.scheduleEvents == null) {
+				this.scheduleEvents = new ArrayList<ScheduleEvent>();
+			}
+			carregarEventos();
+		}
+	}
 
-    @Transacional
-    public void remover() {
-        model.deleteEvent(event);
-        eventoBD.remove(evento);
-        this.setListEventos(eventoBD.listaEventosUser(relacionaUser()));
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Evento Removido", "Evento Removido");
-        addMessage(message);
-    }
+	public void carregarEventos() {
 
-    public void onDateSelect(SelectEvent selectEvent) {
-        this.evento = new Evento();
-        Date dataSelecionada = (Date) selectEvent.getObject();
-        this.evento.setDataInicio(dataSelecionada);
-        this.evento.setDataFim(dataSelecionada);
-    }
+		if (eventos != null) {
+			for (Evento eventoAtual : eventos) {
+				ScheduleEvent newEvent = new CustomScheduleEvent(eventoAtual.getTitulo(), eventoAtual.getDataInicio(),
+						eventoAtual.getDataFim(), eventoAtual.getTipoEvento().getCss(), eventoAtual.isDiaInteiro(),
+						eventoAtual);
+				if (!this.scheduleEvents.contains(newEvent)) {
+					newEvent.setId(eventoAtual.getId().toString());
+					this.scheduleEvents.add(newEvent);
+					this.model.addEvent(newEvent);
+				}
+			}
+		}
 
-    public void onEventSelect(SelectEvent selectEvent) {
-        event = (CustomScheduleEvent) selectEvent.getObject();
-        this.evento = (Evento) event.getData();
-    }
+	}
 
-    public void onEventResize(ScheduleEntryResizeEvent event) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Evento Redimensionado", "Dia:" + event.getDayDelta() + ", Horário:" + event.getMinuteDelta());
-        addMessage(message);
-    }
+	public Evento getEvento() {
+		return evento;
+	}
 
-    private void addMessage(FacesMessage message) {
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
 
-    public TipoEvento[] getTiposEventos() {
-        return TipoEvento.values();
-    }
+	public Usuario relacionaUser() {
+		Usuario usuario = (Usuario) context.getExternalContext().getSessionMap().get("usuarioLogado");
+		return usuario;
+	}
+
+	@Transacional
+	public void salvar() {
+		evento.setUsuario(relacionaUser());
+		ScheduleEvent newEvent = new CustomScheduleEvent(evento.getTitulo(), evento.getDataInicio(),
+				evento.getDataFim(), evento.getTipoEvento().getCss(), evento.isDiaInteiro(), evento);
+		if (evento.getId() == null) {
+			model.addEvent(newEvent);
+			eventoBD.adiciona(evento);
+			System.out.println("Evento ID: " + evento.getId().toString());
+		} else {
+			if (event.getId() == null) {
+				System.out.println("ID-NULO");
+			}
+			newEvent.setId(event.getId());
+			model.updateEvent(newEvent);
+			eventoBD.atualiza(evento);
+
+		}
+		this.setEventos(eventoBD.listaEventosUser(relacionaUser()));
+		model.clear();
+		carregarEventos();
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Evento Salvo", "Evento Salvo");
+		addMessage(message);
+	}
+
+	@Transacional
+	public void remover() {
+		model.deleteEvent(event);
+		eventoBD.remove(evento);
+		this.setEventos(eventoBD.listaEventosUser(relacionaUser()));
+		model.clear();
+		carregarEventos();
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Evento Removido", "Evento Removido");
+		addMessage(message);
+	}
+
+	public void onDateSelect(SelectEvent selectEvent) {
+		this.evento = new Evento();
+		Date dataSelecionada = (Date) selectEvent.getObject();
+		this.evento.setDataInicio(dataSelecionada);
+		this.evento.setDataFim(dataSelecionada);
+	}
+
+	public void onEventSelect(SelectEvent selectEvent) {
+		event = (CustomScheduleEvent) selectEvent.getObject();
+		this.evento = (Evento) event.getData();
+	}
+
+//    public void onEventResize(ScheduleEntryResizeEvent event) {
+//        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Evento Redimensionado", "Dia:" + event.getDayDelta() + ", Horário:" + event.getMinuteDelta());
+//        addMessage(message);
+//    }
+
+	private void addMessage(FacesMessage message) {
+		FacesContext.getCurrentInstance().addMessage(null, message);
+	}
+
+	public TipoEvento[] getTiposEventos() {
+		return TipoEvento.values();
+	}
 
 	public ScheduleModel getModel() {
 		return model;
@@ -160,11 +174,11 @@ public class CalendarioBean implements Serializable {
 		this.scheduleEvents = scheduleEvents;
 	}
 
-	public List<Evento> getListEventos() {
-		return listEventos;
+	public List<Evento> getEventos() {
+		return eventos;
 	}
 
-	public void setListEventos(List<Evento> listEventos) {
-		this.listEventos = listEventos;
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
 	}
 }

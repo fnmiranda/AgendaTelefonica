@@ -27,11 +27,9 @@
 				    <b:navCommandLink value="Home" action="principal?faces-redirect=true" update="@form"/>
 				    <b:navCommandLink value="Agenda" action="calendario?faces-redirect=true"/>
 				    <b:navCommandLink value="Perfil" action="usuarioEditor?faces-redirect=true"/>
-				    <b:navCommandLink value="Sair" action="#{loginBean.efetuarLogout}" update="messages"/>
-				    
+				    <b:navCommandLink value="Sair" update="messages" action="#{loginBean.efetuarLogout}"/>
 				  </b:navbarLinks>
 	  			</b:navBar>
-	  			
 	  			
 	  		</h:form>
 	  		</div>

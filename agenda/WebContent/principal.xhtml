@@ -19,16 +19,16 @@
 			<b:panel title="Dados do Contato" look="success">
 				<b:container>
 					<b:row>
-						<b:column medium-screen="2">
+						<b:column large-screen="2">
 							<p:outputLabel value="Nome:" for="nome" />
 						</b:column>
-						<b:column medium-screen="2">
+						<b:column medium-screen="1">
 							<p:outputLabel value="Data:" for="data" />
 						</b:column>
 						<b:column medium-screen="2">
 							<p:outputLabel value="Telefone:" for="telefone" />
 						</b:column>
-						<b:column medium-screen="2">
+						<b:column medium-screen="3">
 							<p:outputLabel value="Email:" for="email" />
 						</b:column>
 						<b:column medium-screen="4">
@@ -38,25 +38,25 @@
 					<b:row>
 						<b:column medium-screen="2">
 							<p:inputText id="nome" value="#{principalBean.contato.nome}"
-								required="true" requiredMessage="Nome Obrigatório!">
+								required="true" requiredMessage="Nome Obrigatório!" style="width:115%">
 								<f:passThroughAttribute name="placeholder"
 									value="Nome do Contato" />
 								<f:ajax event="blur" render="messages" />
 							</p:inputText>
 						</b:column>
-						<b:column medium-screen="2">
-							<p:calendar id="data" value="#{principalBean.contato.data.time}"
+						<b:column medium-screen="1">
+							<p:calendar id="data" value="#{principalBean.contato.data.time}" size="6"
 								pattern="dd/MM/yyyy" mask="true" timeZone="America/Sao_Paulo"
 								locale="pt_BR" required="true"
 								requiredMessage="Data Obrigatória!" />
 						</b:column>
 						<b:column medium-screen="2">
-							<p:inputMask id="telefone" required="true"
+							<p:inputMask id="telefone" required="true" style="width:115%"
 								value="#{principalBean.contato.telefone}"
 								mask="(99) 9 9999-9999" />
 						</b:column>
-						<b:column medium-screen="2">
-							<p:inputText id="email" value="#{principalBean.contato.email}" />
+						<b:column medium-screen="3">
+							<p:inputText id="email" value="#{principalBean.contato.email}" style="width:110%"/>
 						</b:column>
 						<b:column medium-screen="4">
 							<p:inputTextarea id="descricao" autoResize="true" rows="1"

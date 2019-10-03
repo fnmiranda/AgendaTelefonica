@@ -29,10 +29,11 @@
 
 			<h:form id="scheduleForm">
 				<div align="center">
-					<p:schedule value="#{calendarioBean.model}" widgetVar="schedule"
+					<p:schedule value="#{calendarioBean.model}" widgetVar="scheduleId"
 						id="schedule" timeZone="America/Fortaleza" locale="pt_BR"
-						view="month" timeFormat="HH:mm" minTime="00:00" axisFormat="H:mm"
-						maxTime="19:00" style="width: 800px; height: 600px;">
+						view="month" timeFormat="HH:mm" minTime="00:00"
+						slotLabelFormat="H:mm" maxTime="19:00"
+						style="width: 800px; height: 600px;">
 						<p:ajax event="dateSelect"
 							listener="#{calendarioBean.onDateSelect}"
 							update="#{p:component('scheduleFormDialog')}"
@@ -47,19 +48,17 @@
 
 
 			<h:form id="formTabelaNotas">
-				<p:dataTable id="tableNotas" value="#{calendarioBean.listEventos}"
+				<p:dataTable id="tableNotas" value="#{calendarioBean.eventos}"
 					styleClass="mdl-data-table mdl-js-data-table" var="evento"
 					paginator="true" rows="10" widgetVar="tableNotas">
 
 					<f:facet name="header">Tabela de Anotacões</f:facet>
 					<p:column filterBy="#{evento.titulo}" filterMatchMode="contains"
-						style="text-align: center">
-						<f:facet name="header">Nome</f:facet>
+						style="text-align: left">
 						<h:outputText value="#{evento.titulo}" />
 					</p:column>
 					<p:column style="width: 50px">
-						<p:commandButton
-							update="#{p:component('scheduleFormDialog')}"
+						<p:commandButton update="#{p:component('scheduleFormDialog')}"
 							oncomplete="PF('eventDialog').show()" icon="fa fa-fw fa-search"
 							title="View">
 							<f:setPropertyActionListener value="#{evento}"
@@ -100,10 +99,12 @@
 						onclick="PF('eventDialog').hide(); return false;" />
 					<p:commandButton value="Salvar"
 						update="#{p:component('avisosGrowl')},#{p:component('schedule')},#{p:component('tableNotas')},@form"
-						process="@form" action="#{calendarioBean.salvar()}"/>
-					<p:commandButton value="Remover" process="@form"
-						update="#{p:component('schedule')},#{p:component('avisosGrowl')},#{p:component('tableNotas')},@form"
-						action="#{calendarioBean.remover()}" />
+						process="@form" action="#{calendarioBean.salvar()}" />
+					<p:commandButton value="Remover">
+						<p:ajax update="#{p:component('avisosGrowl')},#{p:component('schedule')},#{p:component('tableNotas')},@form" 
+						listener="#{calendarioBean.remover()}" 
+						process="@form"/>
+					</p:commandButton>
 				</f:facet>
 			</p:dialog>
 		</h:form>

@@ -82,16 +82,19 @@
 				id="tabelaContatos" paginator="true" rows="5"
 				widgetVar="contatosTable"
 				filteredValue="#{principalBean.contatosFiltrados}">
-				<f:facet name="header">Contatos Salvos</f:facet>
-
-				<f:facet name="header">
-					<p:outputPanel>
-						<h:outputText value="Localizar:" />
-						<p:inputText id="globalFilter"
-							onkeyup="PF('contatosTable').filter()" style="width:170px"
-							placeholder="Digite para pesquisar" />
-					</p:outputPanel>
-				</f:facet>
+				
+					<f:facet name="header"><div align="left">Contatos Salvos</div>	</f:facet>
+				
+					<f:facet name="header">
+				<div align="left">
+						<p:outputPanel>
+							<h:outputText value="Localizar:" />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('contatosTable').filter()" style="width:170px"
+								placeholder="Digite para pesquisar" />
+						</p:outputPanel>
+				</div>
+					</f:facet>
 
 				<p:column filterBy="#{contato.nome}" filterMatchMode="contains">
 					<f:facet name="header">Nome</f:facet>

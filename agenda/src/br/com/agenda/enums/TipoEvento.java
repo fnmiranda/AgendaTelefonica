@@ -2,7 +2,7 @@ package br.com.agenda.enums;
 
 public enum TipoEvento {
 	
-	PRADRAO("Padrão", ""),
+	PRADRAO("Normal", ""),
 	URGENTE("Urgente","urgente"),
 	CANCELADO("Cancelado","cancelado");
 	

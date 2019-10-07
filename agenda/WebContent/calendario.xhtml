@@ -19,12 +19,12 @@
 
 		<b:panelGrid col-spans="2,8,2">
 			<h:form id="formDatePicker">
-				<p:datePicker inline="true">
+				<p:calendar mode="inline">
 					<p:ajax event="dateSelect"
 						listener="#{calendarioBean.onDateSelect}"
 						update="#{p:component('scheduleFormDialog')}"
 						oncomplete="PF('eventDialog').show();" />
-				</p:datePicker>
+				</p:calendar>
 			</h:form>
 
 			<h:form id="scheduleForm">
@@ -71,29 +71,38 @@
 
 
 		<h:form id="scheduleFormDialog">
-			<p:dialog widgetVar="eventDialog" header="Evento" responsive="true"
-				modal="true">
+			<p:dialog widgetVar="eventDialog" header="Anotação" responsive="false" position="500,60"
+				modal="true" >
 				<p:panelGrid columns="1" id="panelGridEvento" layout="grid"
 					styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-12">
-					<p:inputText value="#{calendarioBean.evento.titulo}"
-						placeholder="Título" size="30" />
-					<p:calendar pattern="dd/MM/yyyy HH:mm:ss"
-						value="#{calendarioBean.evento.dataInicio}"
-						placeholder="Data Início">
-					</p:calendar>
-					<p:calendar value="#{calendarioBean.evento.dataFim}"
-						pattern="dd/MM/yyyy HH:mm:ss" placeholder="Data Fim">
-					</p:calendar>
-					<p:outputLabel value="Dia Inteiro ?" for="diaInteiro" />
+					
+					<p:inputTextarea value="#{calendarioBean.evento.titulo}"
+						placeholder="Descrição da anotação" style="width:100%"/>
+					<h:panelGrid columns="2" style="width:100%">
+						<p:outputLabel value="Data Inicial:"/>
+						<p:calendar pattern="dd/MM/yyyy HH:mm" mask="true"
+							value="#{calendarioBean.evento.dataInicio}" timeControlType="select"
+							placeholder="Data Inicial">
+						</p:calendar>
+						<p:outputLabel value="Data Final:"/>
+						<p:calendar value="#{calendarioBean.evento.dataFim}" mask="true" timeControlType="select" 
+							pattern="dd/MM/yyyy HH:mm" placeholder="Data Final">
+						</p:calendar>
+					<p:outputLabel value="Dia Inteiro:" for="diaInteiro" />
 					<p:selectBooleanButton id="diaInteiro"
 						value="#{calendarioBean.evento.diaInteiro}" onLabel="Sim"
 						offLabel="Não" label="Dia Inteiro" />
+					</h:panelGrid>
+					
+					<p:outputLabel value="Prioridade:"/>
 					<p:selectOneRadio value="#{calendarioBean.evento.tipoEvento}">
 						<f:selectItems value="#{calendarioBean.tiposEventos}"
 							var="tipoEvento" itemLabel="#{tipoEvento.descricao}"
 							itemValue="#{tipoEvento}" />
 					</p:selectOneRadio>
+					
 				</p:panelGrid>
+				
 				<f:facet name="footer">
 					<p:commandButton value="Fechar"
 						onclick="PF('eventDialog').hide(); return false;" />

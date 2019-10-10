@@ -10,7 +10,10 @@
 <ui:composition template="template.xhtml">
 
 	<ui:define name="titulo">
-		<p:outputPanel>Lista Telefônica</p:outputPanel>
+		<p:outputPanel style="align:left">
+		<b:iconAwesome value="fa-phone"/>
+		Lista Telefônica
+		</p:outputPanel>
 	</ui:define>
 	<ui:define name="conteudo">
 		<h:form id="dadosContato">
@@ -83,7 +86,7 @@
 				widgetVar="contatosTable" emptyMessage="Nenhum contato encontrado!"
 				filteredValue="#{principalBean.contatosFiltrados}">
 				
-					<f:facet name="header"><div align="left">Contatos Salvos</div>	</f:facet>
+					<f:facet name="header"><div align="left"><p:outputPanel>Contatos Salvos</p:outputPanel></div>	</f:facet>
 				
 					<f:facet name="header">
 				<div align="left">

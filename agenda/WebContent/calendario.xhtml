@@ -9,8 +9,11 @@
 
 <ui:composition template="template.xhtml">
 	<ui:define name="titulo">
-	<div align="left">
-		<p:outputPanel style="font-size: 80%">AGENDA</p:outputPanel>
+	<div align="left" style="margin-left:20px">
+		<p:outputPanel style="font-size: 80%">
+		<b:iconAwesome value="fa-calendar-o"/>
+		AGENDA
+		</p:outputPanel>
 	</div>
 	</ui:define>
 
@@ -21,12 +24,14 @@
 
 		<b:panelGrid col-spans="2,8,2" >
 			<h:form id="formDatePicker">
-				<p:calendar mode="inline" style="width:200px; height:200px;">
+			<div align="left" style="margin-left:20px">
+				<p:calendar mode="inline">
 					<p:ajax event="dateSelect"
 						listener="#{calendarioBean.onDateSelect}"
 						update="#{p:component('scheduleFormDialog')}"
 						oncomplete="PF('eventDialog').show();" />
 				</p:calendar>
+			</div>
 			</h:form>
 
 			<h:form id="scheduleForm">
@@ -35,7 +40,7 @@
 						id="schedule" timeZone="America/Fortaleza" locale="pt_BR"
 						view="month" timeFormat="HH:mm" minTime="00:00"
 						slotLabelFormat="H:mm" maxTime="23:00"
-						style="width: 800px; height: 600px;">
+						style="width: 660px; height: 600px;">
 						<p:ajax event="dateSelect"
 							listener="#{calendarioBean.onDateSelect}"
 							update="#{p:component('scheduleFormDialog')}"
@@ -59,9 +64,9 @@
 						style="text-align: left">
 						<h:outputText value="#{evento.titulo}" />
 					</p:column>
-					<p:column style="width: 50px">
-						<b:commandButton update="#{p:component('scheduleFormDialog')}"
-							oncomplete="PF('eventDialog').show()" iconAwesome="fa-search" look="success"
+					<p:column style="width: 60px">
+						<b:commandButton update="#{p:component('scheduleFormDialog')}" 
+							oncomplete="PF('eventDialog').show()" iconAwesome="fa-search" icon-align="left	" look="success"
 							title="View">
 							<f:setPropertyActionListener value="#{evento}"
 								target="#{calendarioBean.evento}" />

@@ -23,7 +23,7 @@
 
 		<div align="center">
 			<h:form rendered="#{usuarioLogado != null}">
-				<b:navBar brand="Web-Note" brandHref="#" inverse="false" >
+				<b:navBar brand="Web-Note" brandHref="#" inverse="false">
 					<b:navbarLinks >
 						<b:navCommandLink value="Contatos" iconAwesome="address-book"
 							action="principal?faces-redirect=true" update="@form" />
@@ -64,7 +64,7 @@
 
 			</h:form>
 		</div>
-		<div align="center">
+		<div align="center" >
 			<h1>
 				<ui:insert name="titulo"></ui:insert>
 			</h1>
@@ -72,7 +72,7 @@
 	</div>
 	
 
-	<div id="conteudo">
+	<div id="conteudo" style="margin-left: 10px;margin-right: 10px;" >
 		<ui:insert name="conteudo"></ui:insert>
 	</div>
 </h:body>

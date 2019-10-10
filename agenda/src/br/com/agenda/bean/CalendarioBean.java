@@ -13,7 +13,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.event.ScheduleEntryResizeEvent;
+//import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
@@ -67,7 +67,7 @@ public class CalendarioBean implements Serializable {
 
 		if (eventos != null) {
 			for (Evento eventoAtual : eventos) {
-				ScheduleEvent newEvent = new CustomScheduleEvent(eventoAtual.getTitulo(), eventoAtual.getDataInicio(),
+				ScheduleEvent newEvent = new CustomScheduleEvent(eventoAtual.getTitulo(), eventoAtual.getDescricao(), eventoAtual.getDataInicio(),
 						eventoAtual.getDataFim(), eventoAtual.getTipoEvento().getCss(), eventoAtual.isDiaInteiro(),
 						eventoAtual);
 				if (!this.scheduleEvents.contains(newEvent)) {
@@ -96,7 +96,7 @@ public class CalendarioBean implements Serializable {
 	@Transacional
 	public void salvar() {
 		evento.setUsuario(relacionaUser());
-		ScheduleEvent newEvent = new CustomScheduleEvent(evento.getTitulo(), evento.getDataInicio(),
+		ScheduleEvent newEvent = new CustomScheduleEvent(evento.getTitulo(), evento.getDescricao(), evento.getDataInicio(),
 				evento.getDataFim(), evento.getTipoEvento().getCss(), evento.isDiaInteiro(), evento);
 		if (evento.getId() == null) {
 			model.addEvent(newEvent);

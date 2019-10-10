@@ -19,6 +19,7 @@ public class Evento implements Serializable{
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String titulo;
+	private String descricao;
 	private Date dataInicio;
 	private Date dataFim;
 	private boolean diaInteiro;
@@ -33,13 +34,14 @@ public class Evento implements Serializable{
 		this.diaInteiro = false;
 	}
 
-	public Evento(Long id, String titulo,  Date dataInicio, Date dataFim, boolean diaInteiro, TipoEvento tipoEvento) {
+	public Evento(Long id, String titulo, String descricao,  Date dataInicio, Date dataFim, boolean diaInteiro, TipoEvento tipoEvento) {
 		this.id = id;
         this.titulo = titulo;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.diaInteiro = diaInteiro;
         this.tipoEvento = tipoEvento;
+        this.descricao = descricao;
 	}
 	
 	public Long getId() {
@@ -96,6 +98,14 @@ public class Evento implements Serializable{
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 	
 }

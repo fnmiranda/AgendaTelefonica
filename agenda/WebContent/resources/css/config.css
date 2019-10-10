@@ -1,0 +1,13 @@
+body, input {
+	font-family: Segoe UI;
+	font-size: 12pt;
+}
+
+input {
+	padding: 2px;
+	margin-top: 5px;
+}
+
+input[type='submit'] {
+	width: 235px;
+}

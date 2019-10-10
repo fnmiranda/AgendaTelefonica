@@ -30,13 +30,14 @@ public class CustomScheduleEvent implements ScheduleEvent {
         this.data = data;
     }
 
-    public CustomScheduleEvent(String title, Date start, Date end, String styleClass, boolean allDay, Object data) {
+    public CustomScheduleEvent(String title, String description, Date start, Date end, String styleClass, boolean allDay, Object data) {
         this.title = title;
         this.startDate = start;
         this.endDate = end;
         this.styleClass = styleClass;
         this.allDay = allDay;
         this.data = data;
+        this.description = description;
 //        System.out.println("Titulo: "+this.title);
 //        System.out.println("data inicial: "+this.startDate.toString());
 //        System.out.println("data final: "+this.endDate.toString());

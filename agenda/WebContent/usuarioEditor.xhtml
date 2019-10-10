@@ -43,17 +43,17 @@
 									<b:inputSecret value="#{usuario.senha}"
 										disabled="#{usuarioEditorBean.edicao}" />	
 										
-									<p:commandButton disabled="#{usuarioEditorBean.edicaoInput}"
-										value="Editar Usuário" 
+									<b:commandButton disabled="#{usuarioEditorBean.edicaoInput}"
+										value="Editar Usuário" look="success" iconAwesome="fa-pencil-square-o"
 										action="#{usuarioEditorBean.editarDadosDoUsuario}"
 										update="@form" process="@form">
-									</p:commandButton>
-									<p:commandButton id="salvarBt"
+									</b:commandButton>
+									<b:commandButton id="salvarBt" look="success"
 										disabled="#{usuarioEditorBean.edicao}"
-										value="Salvar Alterações">
+										value="Salvar Alterações" iconAwesome="fa-floppy-o">
 										<p:ajax listener="#{usuarioEditorBean.salvar}" update="@form"
 											process="@form :#{p:component('avisosGrowl')}" />
-									</p:commandButton>
+									</b:commandButton>
 								</b:panelGrid>
 								
 								

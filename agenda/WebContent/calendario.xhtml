@@ -9,7 +9,9 @@
 
 <ui:composition template="template.xhtml">
 	<ui:define name="titulo">
-		<p:outputPanel> Agenda</p:outputPanel>
+	<div align="left">
+		<p:outputPanel style="font-size: 80%">AGENDA</p:outputPanel>
+	</div>
 	</ui:define>
 
 	<ui:define name="conteudo">
@@ -32,7 +34,7 @@
 					<p:schedule value="#{calendarioBean.model}" widgetVar="scheduleId"
 						id="schedule" timeZone="America/Fortaleza" locale="pt_BR"
 						view="month" timeFormat="HH:mm" minTime="00:00"
-						slotLabelFormat="H:mm" maxTime="19:00"
+						slotLabelFormat="H:mm" maxTime="23:00"
 						style="width: 800px; height: 600px;">
 						<p:ajax event="dateSelect"
 							listener="#{calendarioBean.onDateSelect}"
@@ -58,12 +60,12 @@
 						<h:outputText value="#{evento.titulo}" />
 					</p:column>
 					<p:column style="width: 50px">
-						<p:commandButton update="#{p:component('scheduleFormDialog')}"
-							oncomplete="PF('eventDialog').show()" icon="fa fa-fw fa-search"
+						<b:commandButton update="#{p:component('scheduleFormDialog')}"
+							oncomplete="PF('eventDialog').show()" iconAwesome="fa-search" look="success"
 							title="View">
 							<f:setPropertyActionListener value="#{evento}"
 								target="#{calendarioBean.evento}" />
-						</p:commandButton>
+						</b:commandButton>
 					</p:column>
 				</p:dataTable>
 			</h:form>
@@ -71,49 +73,56 @@
 
 
 		<h:form id="scheduleFormDialog">
-			<p:dialog widgetVar="eventDialog" header="Anotação" responsive="false" position="500,60"
-				modal="true" >
+			<p:dialog widgetVar="eventDialog" header="Anotação"
+				responsive="false" position="500,60" modal="true">
 				<p:panelGrid columns="1" id="panelGridEvento" layout="grid"
 					styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-12">
-					
-					<p:inputTextarea value="#{calendarioBean.evento.titulo}"
-						placeholder="Descrição da anotação" style="width:100%"/>
+					<p:inputText value="#{calendarioBean.evento.titulo}"
+						placeholder="Titulo da anotação" style="width:100%" />
+						
+					<p:inputTextarea value="#{calendarioBean.evento.descricao}"
+						placeholder="Descrição da anotação" style="width:100%" />
 					<h:panelGrid columns="2" style="width:100%">
-						<p:outputLabel value="Data Inicial:"/>
+						<p:outputLabel value="Data Inicial:" />
 						<p:calendar pattern="dd/MM/yyyy HH:mm" mask="true"
-							value="#{calendarioBean.evento.dataInicio}" timeControlType="select"
+							value="#{calendarioBean.evento.dataInicio}"
+							converterMessage="Data inicial Incorreta!" required="true"
+							requiredMessage="Data inicial é necessária!"
 							placeholder="Data Inicial">
 						</p:calendar>
-						<p:outputLabel value="Data Final:"/>
-						<p:calendar value="#{calendarioBean.evento.dataFim}" mask="true" timeControlType="select" 
-							pattern="dd/MM/yyyy HH:mm" placeholder="Data Final">
+						<p:outputLabel value="Data Final:" />
+						<p:calendar value="#{calendarioBean.evento.dataFim}" mask="true"
+							converterMessage="Data final Incorreta!"
+							requiredMessage="Data final é necessária!"
+							pattern="dd/MM/yyyy HH:mm" placeholder="Data Final"
+							required="true">
 						</p:calendar>
-					<p:outputLabel value="Dia Inteiro:" for="diaInteiro" />
-					<p:selectBooleanButton id="diaInteiro"
-						value="#{calendarioBean.evento.diaInteiro}" onLabel="Sim"
-						offLabel="Não" label="Dia Inteiro" />
+						<p:outputLabel value="Dia Inteiro:" for="diaInteiro" />
+						<p:selectBooleanButton id="diaInteiro"
+							value="#{calendarioBean.evento.diaInteiro}" onLabel="Sim"
+							offLabel="Não" label="Dia Inteiro" />
 					</h:panelGrid>
-					
-					<p:outputLabel value="Prioridade:"/>
+
+					<p:outputLabel value="Prioridade:" />
 					<p:selectOneRadio value="#{calendarioBean.evento.tipoEvento}">
 						<f:selectItems value="#{calendarioBean.tiposEventos}"
 							var="tipoEvento" itemLabel="#{tipoEvento.descricao}"
 							itemValue="#{tipoEvento}" />
 					</p:selectOneRadio>
-					
+
 				</p:panelGrid>
-				
+
 				<f:facet name="footer">
-					<p:commandButton value="Fechar"
+					<b:commandButton value="Fechar" look="success"
 						onclick="PF('eventDialog').hide(); return false;" />
-					<p:commandButton value="Salvar"
+					<b:commandButton value="Salvar" iconAwesome="fa-floppy-o" look="success"
 						update="#{p:component('avisosGrowl')},#{p:component('schedule')},#{p:component('tableNotas')},@form"
 						process="@form" action="#{calendarioBean.salvar()}" />
-					<p:commandButton value="Remover">
-						<p:ajax update="#{p:component('avisosGrowl')},#{p:component('schedule')},#{p:component('tableNotas')},@form" 
-						listener="#{calendarioBean.remover()}" 
-						process="@form"/>
-					</p:commandButton>
+					<b:commandButton value="Remover" iconAwesome="fa-trash-o" look="success">
+						<p:ajax
+							update="#{p:component('avisosGrowl')},#{p:component('schedule')},#{p:component('tableNotas')},@form"
+							listener="#{calendarioBean.remover()}" process="@form" />
+					</b:commandButton>
 				</f:facet>
 			</p:dialog>
 		</h:form>

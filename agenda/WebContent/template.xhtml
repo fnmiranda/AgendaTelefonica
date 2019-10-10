@@ -1,47 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:h="http://xmlns.jcp.org/jsf/html"
-	  xmlns:f="http://xmlns.jcp.org/jsf/core"
-	  xmlns:p="http://primefaces.org/ui"
-	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	  xmlns:b="http://bootsfaces.net/ui">
-	  
-	  <h:head>
-	  	<h:outputScript name="locale.js" library="js"/>
-	  	<h:outputStylesheet library="css" name="material.css"/>
-		<h:outputScript library="js" name="material.js"/>
-		<h:outputStylesheet library="css" name="material.min.css"/>
-		<h:outputScript library="js" name="material.min.js"/>
-	  </h:head>
-	  <h:body>
-	  	
-	  	<div id="cabecalho">
-  		
-	  		<p:growl id="messages" showDetail="true" autoUpdate="true"/>
-	  		 
-	  		<div align="center">
-	  		<h:form rendered="#{usuarioLogado != null}">
-	  			<b:navBar brand="Web-Note" brandHref="#" inverse="false" >
-	  			<b:navbarLinks>
-				    <b:navCommandLink value="Home" action="principal?faces-redirect=true" update="@form"/>
-				    <b:navCommandLink value="Agenda" action="calendario?faces-redirect=true"/>
-				    <b:navCommandLink value="Perfil" action="usuarioEditor?faces-redirect=true"/>
-				    <b:navCommandLink value="Sair" update="messages" action="#{loginBean.efetuarLogout}"/>
-				  </b:navbarLinks>
-	  			</b:navBar>
-	  			
-	  		</h:form>
-	  		</div>
-	  		<div align="center">
-	  		<h1>
-	  			<ui:insert name="titulo"></ui:insert>
-	  		</h1>	
-	  		</div>
-	  	</div>
-	  	
-	  	<div id="conteudo">
-	  		<ui:insert name="conteudo"></ui:insert>
-	  	</div>
-	  </h:body>
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	<h:outputScript name="locale.js" library="js" />
+	<h:outputStylesheet library="css" name="material.css" />
+	<h:outputScript library="js" name="material.js" />
+	<h:outputStylesheet library="css" name="material.min.css" />
+	<h:outputScript library="js" name="material.min.js" />
+	
+</h:head>
+<h:body>
+
+	<div id="cabecalho">
+
+		<p:growl id="messages" showDetail="true" autoUpdate="true" />
+
+		<div align="center">
+			<h:form rendered="#{usuarioLogado != null}">
+				<b:navBar brand="Web-Note" brandHref="#" inverse="false" >
+					<b:navbarLinks >
+						<b:navCommandLink value="Contatos" iconAwesome="address-book"
+							action="principal?faces-redirect=true" update="@form" />
+						<b:navCommandLink value="Agenda" iconAwesome="fa-calendar"
+							action="calendario?faces-redirect=true"/>
+						<b:navCommandLink value="Perfil" iconAwesome="fa-user"
+							action="usuarioEditor?faces-redirect=true" />
+						<b:navCommandLink value="Sair" update="@this dialog, messages"
+							oncomplete="PF('logoutDialog').show();" iconAwesome="fa-sign-out" />
+
+					</b:navbarLinks>
+				</b:navBar>
+
+				<p:dialog widgetVar="logoutDialog" id="dialog"
+					responsive="false" position="550,70" modal="true" resizable="false">
+					<f:facet name="header">
+					<b:panelGrid col-spans="2, 10">
+						<b:iconAwesome value="fa-question-circle"/>
+						<h:outputText value="Confirmação"/>
+					</b:panelGrid>
+					</f:facet>
+					<p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
+					<div align="left">
+						<p:outputLabel value="Deseja realmente sair?" />
+					</div>
+					</p:panelGrid>
+
+					<f:facet name="footer">
+						<div align="right">
+							<b:commandButton value="Sim" update="@form" process="@form" iconAwesome="fa-check-circle"
+								action="#{loginBean.efetuarLogout()}" look="success"/>
+							<b:commandButton value="Não" iconAwesome="fa-times-circle" look="success"
+								onclick="PF('logoutDialog').hide(); return false;" />
+						</div>
+					</f:facet>
+
+				</p:dialog>
+
+			</h:form>
+		</div>
+		<div align="center">
+			<h1>
+				<ui:insert name="titulo"></ui:insert>
+			</h1>
+		</div>
+	</div>
+	
+
+	<div id="conteudo">
+		<ui:insert name="conteudo"></ui:insert>
+	</div>
+</h:body>
 </html>

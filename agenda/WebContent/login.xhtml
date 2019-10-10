@@ -13,26 +13,25 @@
 	</ui:define>
 
 	<ui:define name="conteudo">
-		<h:outputStylesheet library="css" name="material.css" />
-		<h:outputScript library="js" name="material.js" />
-		<h:outputStylesheet library="css" name="material.min.css" />
-		<h:outputScript library="js" name="material.min.js" />
+		<p:growl id="avisosGrowl"/>
 
 
-		<p:dialog visible="true" width="340" height="380"
+		<p:dialog visible="true" width="280" height="220" closable="false"
 			header="Acessar sua conta:" showHeader="true"
 			resizable="false">
-			<h:panelGrid style="margin: 0 auto;">
-				<h:outputText styleClass="fa fa-lock fa-5x" />
-			</h:panelGrid>
+			<f:facet name="header">
+			<b:panelGrid col-spans="2, 10">
+				<b:iconAwesome value="fa-user" />
+				<p:outputLabel value="Acessar sua conta:" style="font-size: 70%"/>
+			</b:panelGrid>
+			</f:facet>
 
 			<h:form id="formLogin">
 
-				<b:messages id="messagesLogin" />
 				<div
 					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<p:inputText id="email" value="#{loginBean.usuario.email}"
-						required="true" validatorMessage="Email Invalido" style="width:102%"
+						required="true" validatorMessage="Email Invalido" style="width:100%"
 						styleClass="mdl-textfield__input">
 						<f:validateRegex pattern=".+@.+" />
 					</p:inputText>
@@ -41,15 +40,16 @@
 				</div>
 				<div
 					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<p:password id="senha" value="#{loginBean.usuario.senha}" style="width:102%" 
-						required="true" feedback="true" styleClass="mdl-textfield__input" />
+					<p:password id="senha" value="#{loginBean.usuario.senha}" style="width:100%" 
+						required="true" feedback="true" styleClass="mdl-textfield__input" 
+						requiredMessage="Digite uma senha Valida"/>
 					<p:outputLabel styleClass="mdl-textfield__label" value="Senha"
 						for="senha" />
 				</div>
 
 				<b:panelGrid columns="1">
 					<b:commandButton value="Entrar" action="#{loginBean.efetuarLogin}"
-						update="messagesLogin" look="success"
+						update="avisosGrowl" look="success"
 						styleClass="mdl-button mdl-js-button mdl-button--raised"
 						col-md="13" />
 

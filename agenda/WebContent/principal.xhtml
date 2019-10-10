@@ -47,7 +47,7 @@
 						<b:column medium-screen="1">
 							<p:calendar id="data" value="#{principalBean.contato.data.time}" size="6"
 								pattern="dd/MM/yyyy" mask="true" timeZone="America/Sao_Paulo"
-								locale="pt_BR" required="true"
+								locale="pt_BR" required="true" navigator="false"
 								requiredMessage="Data Obrigatória!" />
 						</b:column>
 						<b:column medium-screen="2">
@@ -65,7 +65,7 @@
 					</b:row>
 					<b:row>
 						<b:column medium-screen="12">
-						<b:commandButton value="Salvar Contato" look="success" 
+						<b:commandButton value="Salvar Contato" look="success" iconAwesome="fa-floppy-o"
 							action="#{principalBean.salvarContatos}" process="@form"
 							update="@form :formTabelaContatos:tabelaContatos" />
 						</b:column>
@@ -78,9 +78,9 @@
 		<br />
 		<h:form id="formTabelaContatos">
 
-			<p:dataTable value="#{principalBean.contatos}" var="contato"
-				id="tabelaContatos" paginator="true" rows="5"
-				widgetVar="contatosTable"
+			<p:dataTable value="#{principalBean.contatos}" var="contato" 
+				id="tabelaContatos" paginator="true" rows="5" 
+				widgetVar="contatosTable" emptyMessage="Nenhum contato encontrado!"
 				filteredValue="#{principalBean.contatosFiltrados}">
 				
 					<f:facet name="header"><div align="left">Contatos Salvos</div>	</f:facet>
@@ -88,7 +88,7 @@
 					<f:facet name="header">
 				<div align="left">
 						<p:outputPanel>
-							<h:outputText value="Localizar:" />
+							<h:outputText value="Localizar:   " />
 							<p:inputText id="globalFilter"
 								onkeyup="PF('contatosTable').filter()" style="width:170px"
 								placeholder="Digite para pesquisar" />
@@ -115,14 +115,14 @@
 				</p:column>
 				<p:column>
 					<f:facet name="header">Alterar</f:facet>
-					<p:commandButton icon="fa fa-fw fa-edit" value="alterar"
-						update=":dadosContato"
+					<b:commandButton iconAwesome="fa-edit" value="alterar"
+						update=":dadosContato" look="success"
 						actionListener="#{principalBean.carregarContato(contato)}" />
 				</p:column>
 				<p:column headerText="Remover">
-					<p:commandButton update="@form" process="@this" value="remover"
+					<b:commandButton update="@form" process="@this" value="remover" look="success"
 						actionListener="#{principalBean.removerContato(contato)}"
-						icon="fa fa-fw fa-remove" />
+						iconAwesome="fa-trash-o" />
 				</p:column>
 			</p:dataTable>
 		</h:form>

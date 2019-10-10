@@ -19,9 +19,9 @@
 		<h:outputStylesheet library="css" name="schedule.css" />
 		<p:growl id="avisosGrowl" />
 
-		<b:panelGrid col-spans="2,8,2">
+		<b:panelGrid col-spans="2,8,2" >
 			<h:form id="formDatePicker">
-				<p:calendar mode="inline">
+				<p:calendar mode="inline" style="width:200px; height:200px;">
 					<p:ajax event="dateSelect"
 						listener="#{calendarioBean.onDateSelect}"
 						update="#{p:component('scheduleFormDialog')}"
@@ -50,7 +50,7 @@
 
 
 			<h:form id="formTabelaNotas">
-				<p:dataTable id="tableNotas" value="#{calendarioBean.eventos}"
+				<p:dataTable id="tableNotas" value="#{calendarioBean.eventos}" style="right: 20px" 
 					styleClass="mdl-data-table mdl-js-data-table" var="evento"
 					paginator="true" rows="10" widgetVar="tableNotas">
 

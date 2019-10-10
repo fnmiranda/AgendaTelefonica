@@ -76,6 +76,7 @@ public class UsuarioEditorBean implements Serializable {
 	
     @Transacional
     public void salvar() {
+    	System.out.println("Entrou no metodo Salvar");
     	this.setEdicaoInput(false);
     	checarBooleano();
     	FacesMessage message;

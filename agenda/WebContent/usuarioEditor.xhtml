@@ -50,10 +50,8 @@
 									</b:commandButton>
 									<b:commandButton id="salvarBt" look="success"
 										disabled="#{usuarioEditorBean.edicao}"
-										value="Salvar Alterações" iconAwesome="fa-floppy-o">
-										<p:ajax listener="#{usuarioEditorBean.salvar}" update="@form"
-											process="@form :#{p:component('avisosGrowl')}" />
-									</b:commandButton>
+										value="Salvar Alterações" iconAwesome="fa-floppy-o" action="#{usuarioEditorBean.salvar}" 
+										update="@form" process="@form"/>
 								</b:panelGrid>
 								
 								

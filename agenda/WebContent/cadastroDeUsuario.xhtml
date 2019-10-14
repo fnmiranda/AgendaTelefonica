@@ -15,58 +15,53 @@
 
 	<p:growl id="cadastroMessage" />
 
-	<h:form id="cadastro">
-		<p:dialog visible="true" width="300" height="230" showHeader="true" closable="false"
-			resizable="false" styleClass="mdl-dialog">
+			<p:dialog visible="true" width="300" height="260" showHeader="true"
+				closable="false" resizable="false" styleClass="mdl-dialog">
 				<f:facet name="header">
 					<b:panelGrid col-spans="2, 10">
 						<b:iconAwesome value="fa-user" />
 						<p:outputLabel value="DADOS DA CONTA:" style="font-size: 70%" />
 					</b:panelGrid>
 				</f:facet>
+			<h:form id="cadastro">
 
 				<div
 					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<p:inputText styleClass="mdl-textfield__input" id="nome"
-						value="#{cadastroBean.usuario.nome}" size="33"
+						value="#{cadastroBean.usuario.nome}"
 						requiredMessage="Campo Login é obrigatório" required="true"
 						validatorMessage="Nome não pode ser inferior a 9 digitos">
 						<f:validateLength minimum="9" />
-						<f:ajax event="blur" render="cadastroMessage" />
 					</p:inputText>
 					<p:outputLabel styleClass="mdl-textfield__label" for="nome"
 						value=" Nome" />
 				</div>
 				<div
-					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<p:inputText id="email" value="#{cadastroBean.usuario.email}"
-						size="33" required="true"
-						validatorMessage="Digite um email Válido"
-						styleClass="mdl-textfield__input">
-						<f:attribute name="type" value="email" />
+						required="true" validatorMessage="Email Invalido"
+						style="width:100%" styleClass="mdl-textfield__input">
 						<f:validateRegex pattern=".+@.+" />
-						<f:ajax event="blur" render="cadastroMessage" />
 					</p:inputText>
-					<p:outputLabel styleClass="mdl-textfield__label" value=" Email"
+					<p:outputLabel styleClass="mdl-textfield__label" value="Email"
 						for="email" />
 				</div>
 				<div
-					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<p:password id="senha" value="#{cadastroBean.usuario.senha}"
-						size="33" feedback="true" required="true"
-						requiredMessage="Campo Senha é obrigatório"
-						styleClass="mdl-textfield__input" />
-					<p:outputLabel styleClass="mdl-textfield__label" value=" Senha"
+						style="width:100%" required="true" feedback="true"
+						styleClass="mdl-textfield__input"
+						requiredMessage="Digite uma senha Valida" />
+					<p:outputLabel styleClass="mdl-textfield__label" value="Senha"
 						for="senha" />
 				</div>
-				<f:facet name="footer">
-					<b:commandButton value="Registrar" col-md="13"
-						styleClass="mdl-button mdl-js-button mdl-button--raised"
-						action="#{cadastroBean.salvarUsuario}" update="@form"
-						look="success" process="@form" />
-				</f:facet>
-			</p:dialog>
-		</h:form>
+				<b:commandButton value="Registrar"
+					action="#{cadastroBean.salvarUsuario}"
+					styleClass="mdl-button mdl-js-button mdl-button--raised"
+					col-md="13" update="cadastroMessage" look="success" />
+
+			</h:form>
+		</p:dialog>
 	</ui:define>
 </ui:composition>
 </html>

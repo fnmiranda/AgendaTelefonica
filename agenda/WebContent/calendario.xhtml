@@ -22,9 +22,9 @@
 		<h:outputStylesheet library="css" name="schedule.css" />
 		<p:growl id="avisosGrowl" />
 
-		<b:panelGrid col-spans="2,8,2" >
+		<b:panelGrid col-spans="2,10" >
 			<h:form id="formDatePicker">
-			<div align="left" style="margin-left:20px">
+			<div align="left" style="margin-left:10px">
 				<p:calendar mode="inline">
 					<p:ajax event="dateSelect"
 						listener="#{calendarioBean.onDateSelect}"
@@ -33,14 +33,14 @@
 				</p:calendar>
 			</div>
 			</h:form>
-
+			<b:panelGrid col-spans="9,3" >
 			<h:form id="scheduleForm">
-				<div align="center">
+				<div align="right">
 					<p:schedule value="#{calendarioBean.model}" widgetVar="scheduleId"
 						id="schedule" timeZone="America/Fortaleza" locale="pt_BR"
 						view="month" timeFormat="HH:mm" minTime="00:00"
 						slotLabelFormat="H:mm" maxTime="23:00"
-						style="width: 660px; height: 600px;">
+						style="width: 600px; height: 680px;">
 						<p:ajax event="dateSelect"
 							listener="#{calendarioBean.onDateSelect}"
 							update="#{p:component('scheduleFormDialog')}"
@@ -55,16 +55,19 @@
 
 
 			<h:form id="formTabelaNotas">
-				<p:dataTable id="tableNotas" value="#{calendarioBean.eventos}" style="right: 20px" 
+				<p:dataTable id="tableNotas" value="#{calendarioBean.eventos}"  
 					styleClass="mdl-data-table mdl-js-data-table" var="evento"
 					paginator="true" rows="10" widgetVar="tableNotas">
 
-					<f:facet name="header">Tabela de Anotacões</f:facet>
+					<f:facet name="header">Anotacões</f:facet>
 					<p:column filterBy="#{evento.titulo}" filterMatchMode="contains"
-						style="text-align: left">
+						style="text-align: left;width: 120px">
 						<h:outputText value="#{evento.titulo}" />
 					</p:column>
-					<p:column style="width: 60px">
+					<p:column style="width: 50px">
+					<f:facet name="header">
+						<b:iconAwesome value="fa-search" size="1x" style="margin-left:10px;margin-bottom:10px"/>
+					</f:facet>
 						<b:commandButton update="#{p:component('scheduleFormDialog')}" 
 							oncomplete="PF('eventDialog').show()" iconAwesome="fa-search" icon-align="left	" look="success"
 							title="View">
@@ -75,7 +78,7 @@
 				</p:dataTable>
 			</h:form>
 		</b:panelGrid>
-
+	</b:panelGrid>
 
 		<h:form id="scheduleFormDialog">
 			<p:dialog widgetVar="eventDialog" header="Anotação"
@@ -123,10 +126,9 @@
 					<b:commandButton value="Salvar" iconAwesome="fa-floppy-o" look="success"
 						update="#{p:component('avisosGrowl')},#{p:component('schedule')},#{p:component('tableNotas')},@form"
 						process="@form" action="#{calendarioBean.salvar()}" />
-					<b:commandButton value="Remover" iconAwesome="fa-trash-o" look="success">
-						<p:ajax
+					<b:commandButton value="Remover" iconAwesome="fa-trash-o" look="success"
 							update="#{p:component('avisosGrowl')},#{p:component('schedule')},#{p:component('tableNotas')},@form"
-							listener="#{calendarioBean.remover()}" process="@form" />
+							action="#{calendarioBean.remover()}" process="@form">
 					</b:commandButton>
 				</f:facet>
 			</p:dialog>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:b="http://bootsfaces.net/ui">
 
 <ui:composition template="template.xhtml">
 	<ui:define name="titulo">
@@ -13,7 +13,7 @@
 	</ui:define>
 
 	<ui:define name="conteudo">
-		<p:growl id="avisosGrowl"/>
+		<!-- <p:growl id="avisosGrowl"/> -->
 
 
 		<p:dialog visible="true" width="280" height="220" closable="false"
@@ -21,18 +21,17 @@
 			resizable="false">
 			<f:facet name="header">
 			<b:panelGrid col-spans="2, 10">
-				<b:iconAwesome value="fa-user" />
+				<b:iconAwesome value="fa-user"/>
 				<p:outputLabel value="Acessar sua conta:" style="font-size: 70%"/>
 			</b:panelGrid>
 			</f:facet>
 
 			<h:form id="formLogin">
-
 				<div
 					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					<p:inputText id="email" value="#{loginBean.usuario.email}"
-						required="true" validatorMessage="Email Invalido" style="width:100%"
-						styleClass="mdl-textfield__input">
+						required="true" validatorMessage="Email Invalido" style="width:100%;"
+						styleClass="mdl-textfield__input" >
 						<f:validateRegex pattern=".+@.+" />
 					</p:inputText>
 					<p:outputLabel styleClass="mdl-textfield__label" value="Email"
@@ -40,7 +39,7 @@
 				</div>
 				<div
 					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<p:password id="senha" value="#{loginBean.usuario.senha}" style="width:100%" 
+					<p:password id="senha" value="#{loginBean.usuario.senha}" style="width:100%;" 
 						required="true" feedback="true" styleClass="mdl-textfield__input" 
 						requiredMessage="Digite uma senha Valida"/>
 					<p:outputLabel styleClass="mdl-textfield__label" value="Senha"
@@ -49,9 +48,9 @@
 
 				<b:panelGrid columns="1">
 					<b:commandButton value="Entrar" action="#{loginBean.efetuarLogin}"
-						update="avisosGrowl" look="success"
-						styleClass="mdl-button mdl-js-button mdl-button--raised"
-						col-md="13" />
+						update="@form" process="@form" ajax="true" look="success" col-md="13"  
+						styleClass="mdl-button mdl-js-button mdl-button--raised">
+					</b:commandButton>
 
 					<p:commandLink value="ou Cadastrar-se"
 						action="#{loginBean.cadastrarNovoUsuario}" process="@this" />

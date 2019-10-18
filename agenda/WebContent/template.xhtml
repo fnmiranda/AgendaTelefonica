@@ -13,67 +13,102 @@
 	<h:outputScript library="js" name="material.js" />
 	<h:outputStylesheet library="css" name="material.min.css" />
 	<h:outputScript library="js" name="material.min.js" />
-	
+
 </h:head>
 <h:body>
-
-	<div id="cabecalho">
-
+<h:form rendered="#{usuarioLogado != null}">
+	<b:navBar  brand-style="color:white;font-size:26pt;font-family: Times New Roman;" brandHref="#" inverse="false" fixed="top"
+		fluid="true" style="background-color:#4fa64c;">
+		<h:form class="navbar-form">
+		<h:graphicImage library="img" name="aluno_online.png" />
+		</h:form>
+		<h:form styleClass="navbar-form navbar-right">
+                <div class="form-group" align="right" style="margin-right:10px;margin-top:15px">
+                <h:panelGroup >
+                	<b:commandButton iconAwesome="fa-dashboard" size="sm"/>
+					<b:commandButton iconAwesome="fa-cogs" size="sm"/>
+					<b:commandButton iconAwesome="fa-user" size="sm"/>
+					<b:commandButton iconAwesome="fa-comment-o" size="sm"/>
+				</h:panelGroup>
+				</div>
+            </h:form>
+		<!-- <h:form styleClass="navbar-form navbar-right"> 
+			<div class="form-group">
+				<b:inputText placeholder="Search..." fieldSize="sm" />
+			</div>
+		</h:form>-->
+	</b:navBar>
+</h:form>
+	<b:container fluid="true">
 		<p:growl id="messages" showDetail="true" autoUpdate="true" />
+		<b:row>
+			<b:column medium-screen="2">
+				<div id="cabecalho">
 
-		<div align="center">
-			<h:form rendered="#{usuarioLogado != null}">
-				<b:navBar brand="Web-Note" brandHref="#" inverse="false">
-					<b:navbarLinks >
-						<b:navCommandLink value="Contatos" iconAwesome="address-book"
-							action="principal?faces-redirect=true" update="@form" />
-						<b:navCommandLink value="Agenda" iconAwesome="fa-calendar"
-							action="calendario?faces-redirect=true"/>
-						<b:navCommandLink value="Perfil" iconAwesome="fa-user"
-							action="usuarioEditor?faces-redirect=true" />
-						<b:navCommandLink value="Sair" update="@this dialog, messages"
-							oncomplete="PF('logoutDialog').show();" iconAwesome="fa-sign-out" />
 
-					</b:navbarLinks>
-				</b:navBar>
+					<h:form rendered="#{usuarioLogado != null}" style="margin-top:20px">
+						<b:listLinks>
+							<b:navBar brand="Web-Note" brandHref="#" inverse="false">
 
-				<p:dialog widgetVar="logoutDialog" id="dialog"
-					responsive="false" position="550,70" modal="true" resizable="false">
-					<f:facet name="header">
-					<b:panelGrid col-spans="2, 10">
-						<b:iconAwesome value="fa-question-circle"/>
-						<h:outputText value="Confirmação"/>
-					</b:panelGrid>
-					</f:facet>
-					<p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
-					<div align="left">
-						<p:outputLabel value="Deseja realmente sair?" />
-					</div>
-					</p:panelGrid>
+							</b:navBar>
+							<b:navCommandLink value="Contatos" iconAwesome="address-book" style="color:green" 
+								action="principal?faces-redirect=true" update="@form" />
+							<b:navCommandLink value="Agenda" iconAwesome="fa-calendar" style="color:green"
+								action="calendario?faces-redirect=true" />
+							<b:navCommandLink value="Perfil" iconAwesome="fa-user" style="color:green"
+								action="usuarioEditor?faces-redirect=true" />
+							<b:navLink />
 
-					<f:facet name="footer">
-						<div align="right">
-							<b:commandButton value="Sim" update="@form" process="@form" iconAwesome="fa-check-circle"
-								action="#{loginBean.efetuarLogout()}" look="success"/>
-							<b:commandButton value="Não" iconAwesome="fa-times-circle" look="success"
-								onclick="PF('logoutDialog').hide(); return false;" />
-						</div>
-					</f:facet>
+							<b:navCommandLink value="Sair" update="@this dialog, messages" style="color:green"
+								oncomplete="PF('logoutDialog').show();"
+								iconAwesome="fa-sign-out" />
+						</b:listLinks>
 
-				</p:dialog>
 
-			</h:form>
-		</div>
-		<div align="center" >
-			<h1>
-				<ui:insert name="titulo"></ui:insert>
-			</h1>
-		</div>
-	</div>
-	
+						<p:dialog widgetVar="logoutDialog" id="dialog" responsive="false"
+							position="550,70" modal="true" resizable="false">
+							<f:facet name="header">
+								<b:panelGrid col-spans="2, 10">
+									<b:iconAwesome value="fa-question-circle" />
+									<h:outputText value="Confirmação" />
+								</b:panelGrid>
+							</f:facet>
+							<p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
+								<div align="left">
+									<p:outputLabel value="Deseja realmente sair?" />
+								</div>
+							</p:panelGrid>
 
-	<div id="conteudo" style="margin-left: 10px;margin-right: 10px;" >
-		<ui:insert name="conteudo"></ui:insert>
-	</div>
+							<f:facet name="footer">
+								<div align="right">
+									<b:commandButton value="Sim" update="@form" process="@form"
+										iconAwesome="fa-check-circle"
+										action="#{loginBean.efetuarLogout()}" look="success" />
+									<b:commandButton value="Não" iconAwesome="fa-times-circle"
+										look="success"
+										onclick="PF('logoutDialog').hide(); return false;" />
+								</div>
+							</f:facet>
+
+						</p:dialog>
+
+					</h:form>
+				</div>
+			</b:column>
+			<b:column medium-screen="10">
+				<div align="center" style="margin-top: 110px;">
+					<h1>
+						<ui:insert name="titulo"></ui:insert>
+					</h1>
+				</div>
+
+
+
+				<div id="conteudo" style="margin-left: 10px; margin-right: 10px;">
+					<ui:insert name="conteudo"></ui:insert>
+				</div>
+			</b:column>
+		</b:row>
+	</b:container>
 </h:body>
 </html>

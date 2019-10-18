@@ -42,11 +42,12 @@ public class LoginBean implements Serializable{
 			return "principal?faces-redirect=true";
 		}
 		
-		context.getExternalContext().getFlash().setKeepMessages(true);
 		context.addMessage(null, new FacesMessage("Usuário não encontrado!"));
+		context.getExternalContext().getFlash().setKeepMessages(true);
 		
 		return "login?faces-redirect=true";
 	}
+	
 	
 	public String efetuarLogout() {
 		context.getExternalContext().getSessionMap().remove("usuarioLogado");

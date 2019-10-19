@@ -9,12 +9,12 @@
 
 <ui:composition template="template.xhtml">
 	<ui:define name="titulo">
-	<div align="left" style="margin-left:20px">
-		<p:outputPanel style="font-size: 80%">
-		<b:iconAwesome value="fa-calendar-o"/>
-		AGENDA
-		</p:outputPanel>
-	</div>
+		<div align="left" style="margin-left: 20px">
+			<p:outputPanel style="font-size: 80%">
+				<b:iconAwesome value="fa-calendar-o" />
+				AGENDA
+			</p:outputPanel>
+		</div>
 	</ui:define>
 
 	<ui:define name="conteudo">
@@ -22,20 +22,9 @@
 		<h:outputStylesheet library="css" name="schedule.css" />
 		<p:growl id="avisosGrowl" />
 
-		<b:panelGrid col-spans="2,10" >
-			<h:form id="formDatePicker">
-			<div align="left" style="margin-left:10px">
-				<p:calendar mode="inline">
-					<p:ajax event="dateSelect"
-						listener="#{calendarioBean.onDateSelect}"
-						update="#{p:component('scheduleFormDialog')}"
-						oncomplete="PF('eventDialog').show();" />
-				</p:calendar>
-			</div>
-			</h:form>
-			<b:panelGrid col-spans="9,3" >
+		<b:panelGrid col-spans="8,4">
 			<h:form id="scheduleForm">
-				<div align="right">
+				<div align="center">
 					<p:schedule value="#{calendarioBean.model}" widgetVar="scheduleId"
 						id="schedule" timeZone="America/Fortaleza" locale="pt_BR"
 						view="month" timeFormat="HH:mm" minTime="00:00"
@@ -55,7 +44,7 @@
 
 
 			<h:form id="formTabelaNotas">
-				<p:dataTable id="tableNotas" value="#{calendarioBean.eventos}"  
+				<p:dataTable id="tableNotas" value="#{calendarioBean.eventos}" emptyMessage="Vazio"
 					styleClass="mdl-data-table mdl-js-data-table" var="evento"
 					paginator="true" rows="10" widgetVar="tableNotas">
 
@@ -64,21 +53,24 @@
 						style="text-align: left;width: 120px">
 						<h:outputText value="#{evento.titulo}" />
 					</p:column>
-					<p:column style="width: 50px">
-					<f:facet name="header">
-						<b:iconAwesome value="fa-search" size="1x" style="margin-left:10px;margin-bottom:10px"/>
-					</f:facet>
-						<b:commandButton update="#{p:component('scheduleFormDialog')}" 
-							oncomplete="PF('eventDialog').show()" iconAwesome="fa-search" icon-align="left	" look="success"
-							title="View">
+					<p:column style="width: 5px;" width="8%">
+						<div align="center">
+						<f:facet name="header">
+							<b:iconAwesome value="fa-search" size="lg"
+								style="margin-left:10px;margin-bottom:10px" />
+						</f:facet>
+						<b:commandButton update="#{p:component('scheduleFormDialog')}"
+							oncomplete="PF('eventDialog').show()" iconAwesome="fa-pencil-square-o"
+							icon-align="center" look="success" title="View">
 							<f:setPropertyActionListener value="#{evento}"
 								target="#{calendarioBean.evento}" />
 						</b:commandButton>
+						</div>
 					</p:column>
 				</p:dataTable>
 			</h:form>
+			
 		</b:panelGrid>
-	</b:panelGrid>
 
 		<h:form id="scheduleFormDialog">
 			<p:dialog widgetVar="eventDialog" header="Anotação"
@@ -87,7 +79,7 @@
 					styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-12">
 					<p:inputText value="#{calendarioBean.evento.titulo}"
 						placeholder="Titulo da anotação" style="width:100%" />
-						
+
 					<p:inputTextarea value="#{calendarioBean.evento.descricao}"
 						placeholder="Descrição da anotação" style="width:100%" />
 					<h:panelGrid columns="2" style="width:100%">
@@ -123,12 +115,14 @@
 				<f:facet name="footer">
 					<b:commandButton value="Fechar" look="success"
 						onclick="PF('eventDialog').hide(); return false;" />
-					<b:commandButton value="Salvar" iconAwesome="fa-floppy-o" look="success"
+					<b:commandButton value="Salvar" iconAwesome="fa-floppy-o"
+						look="success"
 						update="#{p:component('avisosGrowl')},#{p:component('schedule')},#{p:component('tableNotas')},@form"
 						process="@form" action="#{calendarioBean.salvar()}" />
-					<b:commandButton value="Remover" iconAwesome="fa-trash-o" look="success"
-							update="#{p:component('avisosGrowl')},#{p:component('schedule')},#{p:component('tableNotas')},@form"
-							action="#{calendarioBean.remover()}" process="@form">
+					<b:commandButton value="Remover" iconAwesome="fa-trash-o"
+						look="success"
+						update="#{p:component('avisosGrowl')},#{p:component('schedule')},#{p:component('tableNotas')},@form"
+						action="#{calendarioBean.remover()}" process="@form">
 					</b:commandButton>
 				</f:facet>
 			</p:dialog>

@@ -28,6 +28,8 @@ public class UsuarioEditorBean implements Serializable {
 	
 	private boolean edicao;
 	private boolean edicaoInput;
+	private String senhaAntiga ="";
+	private String senhaNova ="";
 	
 	@PostConstruct
 	public void init() {
@@ -76,24 +78,47 @@ public class UsuarioEditorBean implements Serializable {
 	
     @Transacional
     public void salvar() {
-    	System.out.println("Entrou no metodo Salvar");
+//    	System.out.println("Entrou no metodo Salvar: "+ senhaAntiga);
     	this.setEdicaoInput(false);
     	checarBooleano();
     	FacesMessage message;
-        if (usuario.getId() != null) {
+        if (usuario.getId() != null && usuario.getSenha().equals(senhaAntiga)) {
+//        	System.out.println(senhaNova);
+        	usuario.setSenha(senhaNova);
             usuarioDB.atualiza(usuario);
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "usuario Salvo", "usuario Salvo");
+            addMessage(message);
         } else {
+        	System.out.println("não pode ser salvo: "+senhaNova);
         	String mensagem = "Usuário não pode ser editado";
         	message = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem, mensagem);
+        	addMessage(message);
         }
         
-        addMessage(message);
+    	
     }
     
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+
+
+
+	public String getSenhaAntiga() {
+		return senhaAntiga;
+	}
+
+	public void setSenhaAntiga(String senhaAntiga) {
+		this.senhaAntiga = senhaAntiga;
+	}
+
+	public String getSenhaNova() {
+		return senhaNova;
+	}
+
+	public void setSenhaNova(String senhaNova) {
+		this.senhaNova = senhaNova;
+	}
 
 
 }

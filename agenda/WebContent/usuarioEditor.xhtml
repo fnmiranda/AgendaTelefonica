@@ -12,7 +12,7 @@
 	<div align="left" style="margin-left:20px">
 		<p:outputPanel style="font-size: 80%">
 		<b:iconAwesome value="fa-pencil-square"/>
-		EDITAR INFORMAÇÕES DE USUÁRIO
+		EDITAR PERFIL
 		</p:outputPanel>
 	</div>
 	</ui:define>
@@ -33,21 +33,24 @@
 					<b:row>
 						<b:column medium-screen="7">
 							<p:outputPanel header="#{usuario.id}" style="text-align:left">
-								<b:panelGrid columns="3" >
+								<b:panelGrid columns="4" >
 
 									<p:outputLabel value="Nome: " />
 									<p:outputLabel value="Email: " />
-									<p:outputLabel value="Senha: " />
+									<p:outputLabel value="Senha Antiga: " />
+									<p:outputLabel value="Senha Nova: " />
 									
-									<b:inputText value="#{usuario.nome}"
-										disabled="#{usuarioEditorBean.edicao}" />
-									<b:inputText value="#{usuario.email}" id="email" size="22"
+									<b:inputText value="#{usuario.nome}" required="true"
+										disabled="#{usuarioEditorBean.edicao}" 
+										requiredMessage="Preencha o campo Nome"/>
+									<b:inputText value="#{usuario.email}" id="email" size="22" required="true"
 										disabled="#{usuarioEditorBean.edicao}">
-										<p:ajax event="keyup" update="email" />
+										<p:ajax event="keyup" update="email"/>
 									</b:inputText>
-									<b:inputSecret value="#{usuario.senha}"
-										disabled="#{usuarioEditorBean.edicao}" />	
-										
+									<b:inputSecret value="#{usuarioEditorBean.senhaAntiga}" required="true"
+										disabled="#{usuarioEditorBean.edicao}" />
+									<b:inputSecret value="#{usuarioEditorBean.senhaNova}" required="true"
+										disabled="#{usuarioEditorBean.edicao}" />
 									<b:commandButton disabled="#{usuarioEditorBean.edicaoInput}"
 										value="Editar Usuário" look="success" iconAwesome="fa-pencil-square-o"
 										action="#{usuarioEditorBean.editarDadosDoUsuario}"

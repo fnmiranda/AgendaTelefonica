@@ -26,8 +26,8 @@ public class UsuarioBD implements Serializable{
 	public Usuario existeUsuario(Usuario usuario) {
 		TypedQuery<Usuario> query = em.createQuery("select u from Usuario u "
 			+ "where u.email = :pEmail and u.senha = :pSenha", Usuario.class);
-//		System.out.println("Email: " + usuario.getEmail());
-//		System.out.println("Senha: " + usuario.getSenha());
+		System.out.println("Email: " + usuario.getEmail());
+		System.out.println("Senha: " + usuario.getSenha());
 		
 		query.setParameter("pEmail", usuario.getEmail());
 		query.setParameter("pSenha", usuario.getSenha());

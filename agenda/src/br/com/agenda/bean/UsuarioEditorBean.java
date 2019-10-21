@@ -86,7 +86,7 @@ public class UsuarioEditorBean implements Serializable {
 //        	System.out.println(senhaNova);
         	usuario.setSenha(senhaNova);
             usuarioDB.atualiza(usuario);
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "usuario Salvo", "usuario Salvo");
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário Salvo", "Usuário Salvo");
             addMessage(message);
         } else {
         	System.out.println("não pode ser salvo: "+senhaNova);

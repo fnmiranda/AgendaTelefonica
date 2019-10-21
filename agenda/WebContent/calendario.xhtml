@@ -20,11 +20,10 @@
 	<ui:define name="conteudo">
 		<br />
 		<h:outputStylesheet library="css" name="schedule.css" />
-		<p:growl id="avisosGrowl" />
 
 		<b:panelGrid col-spans="8,4">
 			<h:form id="scheduleForm">
-				<div align="center">
+				<div align="left">
 					<p:schedule value="#{calendarioBean.model}" widgetVar="scheduleId"
 						id="schedule" timeZone="America/Fortaleza" locale="pt_BR"
 						view="month" timeFormat="HH:mm" minTime="00:00"
@@ -53,7 +52,7 @@
 						style="text-align: left;width: 120px">
 						<h:outputText value="#{evento.titulo}" />
 					</p:column>
-					<p:column style="width: 5px;" width="8%">
+					<p:column style="width: 5px;" width="7%">
 						<div align="center">
 						<f:facet name="header">
 							<b:iconAwesome value="fa-search" size="lg"
@@ -117,11 +116,11 @@
 						onclick="PF('eventDialog').hide(); return false;" />
 					<b:commandButton value="Salvar" iconAwesome="fa-floppy-o"
 						look="success"
-						update="#{p:component('avisosGrowl')},#{p:component('schedule')},#{p:component('tableNotas')},@form"
+						update="#{p:component('schedule')},#{p:component('tableNotas')},@form"
 						process="@form" action="#{calendarioBean.salvar()}" />
 					<b:commandButton value="Remover" iconAwesome="fa-trash-o"
 						look="success"
-						update="#{p:component('avisosGrowl')},#{p:component('schedule')},#{p:component('tableNotas')},@form"
+						update="#{p:component('schedule')},#{p:component('tableNotas')},@form"
 						action="#{calendarioBean.remover()}" process="@form">
 					</b:commandButton>
 				</f:facet>

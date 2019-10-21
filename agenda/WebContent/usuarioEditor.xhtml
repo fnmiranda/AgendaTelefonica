@@ -17,11 +17,8 @@
 	</div>
 	</ui:define>
 	<ui:define name="conteudo">
-	
-	
-	
-		<p:growl id="avisosGrowl" />
 		<h:form>
+		<!-- <b:growl id="avisosGrowl" />-->
     		<p:dataScroller chunkSize="10" value="#{usuarioEditorBean.usuario}"
 				var="usuario">
 				<f:facet name="header">
@@ -44,13 +41,13 @@
 										disabled="#{usuarioEditorBean.edicao}" 
 										requiredMessage="Preencha o campo Nome"/>
 									<b:inputText value="#{usuario.email}" id="email" size="22" required="true"
-										disabled="#{usuarioEditorBean.edicao}">
+										disabled="#{usuarioEditorBean.edicao}" requiredMessage="Preencha o campo Email">
 										<p:ajax event="keyup" update="email"/>
 									</b:inputText>
 									<b:inputSecret value="#{usuarioEditorBean.senhaAntiga}" required="true"
-										disabled="#{usuarioEditorBean.edicao}" />
+										disabled="#{usuarioEditorBean.edicao}" requiredMessage="Digite a senha antiga"/>
 									<b:inputSecret value="#{usuarioEditorBean.senhaNova}" required="true"
-										disabled="#{usuarioEditorBean.edicao}" />
+										disabled="#{usuarioEditorBean.edicao}" requiredMessage="Digite a senha Nova"/>
 									<b:commandButton disabled="#{usuarioEditorBean.edicaoInput}"
 										value="Editar Usuário" look="success" iconAwesome="fa-pencil-square-o"
 										action="#{usuarioEditorBean.editarDadosDoUsuario}"

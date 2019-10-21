@@ -13,7 +13,7 @@
 	</ui:define>
 
 	<ui:define name="conteudo">
-		<p:growl id="avisosGrowl"/>
+		<!-- <p:growl id="avisosGrowl"/> -->
 
 
 		<p:dialog visible="true" width="280" height="220" closable="false"
@@ -48,7 +48,7 @@
 
 				<b:panelGrid columns="1">
 					<b:commandButton value="Entrar" action="#{loginBean.efetuarLogin}"
-						update="avisosGrowl" process="avisosGrowl" look="success" col-md="13"  
+						update="@form" process="@form" look="success" col-md="13"  
 						styleClass="mdl-button mdl-js-button mdl-button--raised">
 					</b:commandButton>
 

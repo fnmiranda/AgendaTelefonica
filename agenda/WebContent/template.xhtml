@@ -16,6 +16,10 @@
 
 </h:head>
 <h:body>
+	<b:growl id="messages" showDetail="false" autoUpdate="true" show-summary="true" allow-dismiss="true"
+         animation-enter="animated bounceInDown"
+         animation-exit="animated flipOutX"
+         escape="true"/>
 	<h:form rendered="#{usuarioLogado != null}">
 		<b:navBar
 			brand-style="color:white;font-size:26pt;font-family: Times New Roman;"
@@ -43,7 +47,6 @@
 		</b:navBar>
 	</h:form>
 	<b:container fluid="true">
-		<p:growl id="messages" showDetail="true" autoUpdate="true" />
 		<b:row>
 			<b:column medium-screen="2">
 				<div id="cabecalho">
@@ -108,7 +111,7 @@
 
 
 
-				<div id="conteudo" style="margin-right: 10px;">
+				<div id="conteudo" style="margin-right: 0px;">
 					<ui:insert name="conteudo"></ui:insert>
 				</div>
 			</b:column>

@@ -24,37 +24,15 @@ public class PupulaBD implements Serializable{
 
 		em.getTransaction().begin();
 
-		Usuario assis = geraUsuario("Nico", "nico@gmail.com", "12345");
-		em.persist(assis);
+		
 
-		Usuario amado = geraUsuario("Italo", "italo@gmail.com", "qwe123");
+		Usuario amado = geraUsuario("Admin", "admin@gmail.com", "cr3d302");
 		em.persist(amado);
 
-		
-		
-		Contato casmurro = geraContato("Minecraft","conteudo ","(88)9 92777738",
-				"10/01/1899", assis);
-		Contato memorias = geraContato("Casa","conteudo","(88)9 92777738", "01/01/1881", assis);
-		Contato quincas = geraContato("Quincas Borba","conteudo","(88)9 92777738",
-				"01/01/1891", assis);
-
-		em.persist(casmurro);
-		em.persist(memorias);
-		em.persist(quincas);
-
-		Contato alquemista = geraContato("alquimista", "conteudo","(88)9 92777738",
+		Contato alquemista = geraContato("CREDE", "conteudo","(88)9 92777738",
 				"01/01/1988", amado);
-		Contato brida = geraContato("número", "Brida","(88)9 92777738", "01/01/1990",
-				amado);
-		Contato valkirias = geraContato("ligações", "As Valkirias","(88)9 92777738",
-				"01/01/1992", amado);
-		Contato maao = geraContato("Comida", "O Diario de um Mago","(88)9 92777738",
-				"01/01/1987", amado);
 
 		em.persist(alquemista);
-		em.persist(brida);
-		em.persist(valkirias);
-		em.persist(maao);
 
 
 		em.getTransaction().commit();

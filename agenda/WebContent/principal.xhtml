@@ -10,12 +10,12 @@
 <ui:composition template="template.xhtml">
 
 	<ui:define name="titulo">
-	<div align="left" style="margin-left:20px">
-		<p:outputPanel style="align:left;font-size: 80%;">
-		<b:iconAwesome value="fa-phone"/>
+		<div align="left" style="margin-left: 20px">
+			<p:outputPanel style="align:left;font-size: 80%;">
+				<b:iconAwesome value="fa-phone" />
 		LISTA TELEFÔNICA
 		</p:outputPanel>
-	</div>
+		</div>
 	</ui:define>
 	<ui:define name="conteudo">
 		<h:form id="dadosContato">
@@ -43,17 +43,18 @@
 					<b:row>
 						<b:column medium-screen="2">
 							<p:inputText id="nome" value="#{principalBean.contato.nome}"
-								required="true" requiredMessage="Nome Obrigatório!" style="width:115%">
+								required="true" requiredMessage="Nome Obrigatório!"
+								style="width:115%">
 								<f:passThroughAttribute name="placeholder"
 									value="Nome do Contato" />
 								<f:ajax event="blur" render="messages" />
 							</p:inputText>
 						</b:column>
 						<b:column medium-screen="1">
-							<p:calendar id="data" value="#{principalBean.contato.data.time}" size="6"
-								pattern="dd/MM/yyyy" mask="true" timeZone="America/Sao_Paulo"
-								locale="pt_BR" required="true" navigator="false"
-								requiredMessage="Data Obrigatória!" />
+							<p:calendar id="data" value="#{principalBean.contato.data.time}"
+								size="6" pattern="dd/MM/yyyy" mask="true"
+								timeZone="America/Sao_Paulo" locale="pt_BR" required="true"
+								navigator="false" requiredMessage="Data Obrigatória!" />
 						</b:column>
 						<b:column medium-screen="2">
 							<p:inputMask id="telefone" required="true" style="width:115%"
@@ -61,7 +62,8 @@
 								mask="(99) 9 9999-9999" />
 						</b:column>
 						<b:column medium-screen="3">
-							<p:inputText id="email" value="#{principalBean.contato.email}" style="width:110%"/>
+							<p:inputText id="email" value="#{principalBean.contato.email}"
+								style="width:110%" />
 						</b:column>
 						<b:column medium-screen="4">
 							<p:inputTextarea id="descricao" autoResize="true" rows="1"
@@ -70,9 +72,10 @@
 					</b:row>
 					<b:row>
 						<b:column medium-screen="12">
-						<b:commandButton value="Salvar Contato" look="success" iconAwesome="fa-floppy-o"
-							action="#{principalBean.salvarContatos}" process="@form"
-							update="@form :formTabelaContatos:tabelaContatos" />
+							<b:commandButton value="Salvar Contato" look="success"
+								iconAwesome="fa-floppy-o"
+								action="#{principalBean.salvarContatos}" process="@form"
+								update="@form :formTabelaContatos:tabelaContatos" />
 						</b:column>
 					</b:row>
 				</b:container>
@@ -83,23 +86,27 @@
 		<br />
 		<h:form id="formTabelaContatos">
 
-			<p:dataTable value="#{principalBean.contatos}" var="contato" 
-				id="tabelaContatos" paginator="true" rows="5" 
+			<p:dataTable value="#{principalBean.contatos}" var="contato"
+				id="tabelaContatos" paginator="true" rows="5"
 				widgetVar="contatosTable" emptyMessage="Nenhum contato encontrado!"
 				filteredValue="#{principalBean.contatosFiltrados}">
-				
-					<f:facet name="header"><div align="left"><p:outputPanel>Contatos Salvos</p:outputPanel></div>	</f:facet>
-				
-					<f:facet name="header">
-				<div align="left">
+
+				<f:facet name="header">
+					<div align="left">
+						<p:outputPanel>Contatos Salvos</p:outputPanel>
+					</div>
+				</f:facet>
+
+				<f:facet name="header">
+					<div align="left">
 						<p:outputPanel>
 							<h:outputText value="Localizar:   " />
 							<p:inputText id="globalFilter"
 								onkeyup="PF('contatosTable').filter()" style="width:170px"
 								placeholder="Digite para pesquisar" />
 						</p:outputPanel>
-				</div>
-					</f:facet>
+					</div>
+				</f:facet>
 
 				<p:column filterBy="#{contato.nome}" filterMatchMode="contains">
 					<f:facet name="header">Nome</f:facet>
@@ -125,7 +132,8 @@
 						actionListener="#{principalBean.carregarContato(contato)}" />
 				</p:column>
 				<p:column headerText="Remover">
-					<b:commandButton update="@form" process="@this" value="remover" look="success"
+					<b:commandButton update="@form" process="@this" value="remover"
+						look="success"
 						actionListener="#{principalBean.removerContato(contato)}"
 						iconAwesome="fa-trash-o" />
 				</p:column>

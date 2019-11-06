@@ -13,7 +13,7 @@
 
 	<ui:define name="conteudo">
 
-	<p:growl id="cadastroMessage" />
+<!-- 	<p:growl id="cadastroMessage" /> -->
 
 			<p:dialog visible="true" width="300" height="260" showHeader="true"
 				closable="false" resizable="false" styleClass="mdl-dialog">
@@ -58,7 +58,7 @@
 				<b:commandButton value="Registrar"
 					action="#{cadastroBean.salvarUsuario}"
 					styleClass="mdl-button mdl-js-button mdl-button--raised"
-					col-md="13" update="cadastroMessage" look="success" />
+					col-md="13" update="@this" look="success" />
 
 			</h:form>
 		</p:dialog>

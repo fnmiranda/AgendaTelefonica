@@ -16,19 +16,19 @@
 
 </h:head>
 <h:body>
-	<b:growl id="messages" showDetail="false" autoUpdate="true" show-summary="true" allow-dismiss="true"
-         animation-enter="animated bounceInDown"
-         animation-exit="animated flipOutX"
-         escape="true"/>
+	<b:growl id="messages" showDetail="false" autoUpdate="true"
+		show-summary="true" allow-dismiss="true"
+		animation-enter="animated bounceInDown"
+		animation-exit="animated flipOutX" escape="true" />
 	<h:form rendered="#{usuarioLogado != null}">
 		<b:navBar
 			brand-style="color:white;font-size:26pt;font-family: Times New Roman;"
-			brandHref="#" inverse="false" fixed="top" fluid="true"
+			brandHref="#" inverse="false" fluid="true"
 			style="background-color:#4fa64c;">
 			<h:form class="navbar-form">
 				<h:graphicImage library="img" name="aluno_online-2.png" />
 			</h:form>
-<!-- 			<h:form styleClass="navbar-form navbar-right">
+			<!-- 			<h:form styleClass="navbar-form navbar-right">
 				<div class="form-group" align="right"
 					style="margin-right: 10px; margin-top: 15px">
 					<h:panelGroup>
@@ -48,15 +48,11 @@
 	</h:form>
 	<b:container fluid="true">
 		<b:row>
-			<b:column medium-screen="2">
-				<div id="cabecalho">
+			<b:column medium-screen="2" >
+				<div id="cabecalho" style="margin-left:20px" >
 
-
-					<h:form rendered="#{usuarioLogado != null}" style="margin-top:20px">
+					<h:form rendered="#{usuarioLogado != null}">
 						<b:listLinks>
-							<b:navBar brand="Web-Note" brandHref="#" inverse="false">
-
-							</b:navBar>
 							<b:navCommandLink value="Contatos" iconAwesome="address-book"
 								style="color:green" action="principal?faces-redirect=true"
 								update="@form" />
@@ -102,8 +98,8 @@
 					</h:form>
 				</div>
 			</b:column>
-			<b:column medium-screen="10">
-				<div align="center" style="margin-top: 100px;">
+			<b:column medium-screen="10" style="margin-top:-20px">
+				<div align="center" >
 					<h1>
 						<ui:insert name="titulo"></ui:insert>
 					</h1>
@@ -111,7 +107,7 @@
 
 
 
-				<div id="conteudo" style="margin-right: 0px;">
+				<div id="conteudo">
 					<ui:insert name="conteudo"></ui:insert>
 				</div>
 			</b:column>

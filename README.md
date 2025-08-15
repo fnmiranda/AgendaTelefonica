@@ -1,29 +1,31 @@
-# 📒 Agenda Telefônica
+# 📒 Agenda Telefônica — Java + JSF + PrimeFaces + BootFaces + Hibernate
 
-Aplicação simples de **Agenda Telefônica** para web, com foco em cadastro e listagem de contatos.  
-O projeto é majoritariamente front-end (HTML/CSS/JS) e inclui código Java no repositório (protótipo/estudos).
-
-> Pasta principal do front-end: `./agenda/` (páginas e assets).
+Aplicação web para **cadastro, listagem e gerenciamento de contatos** (agenda telefônica).  
+Interface feita com **JSF (Facelets)** utilizando **PrimeFaces** e **BootFaces** para componentes UI, e persistência com **Hibernate (JPA)**.
 
 ---
 
 ## ✨ Funcionalidades
 
-- ➕ **Cadastro/edição** de contatos (nome, telefone etc.)
-- 📄 **Listagem** e busca simples
-- 🗑️ **Exclusão** de registros
-- 💡 UI estática, sem dependências de build — ideal para estudo e deploy rápido (GitHub Pages)
+- ➕ **CRUD de Contatos**: criar, editar, listar e excluir
+- 🔎 **Busca/filtragem** por nome/telefone
+- 🧩 **Componentes UI** com PrimeFaces e BootFaces (tabelas, formulários, diálogos, alertas)
+- 💾 **Persistência** com JPA/Hibernate
+- 🧱 **Validação** no formulário (JSF validators/converters)
+- 🌐 **Arquitetura MVC** típica de apps JSF (Managed Beans/Services/DAOs)
 
 ---
 
-## 🧰 Tecnologias
+## 🧰 Tecnologias & Bibliotecas
 
-- 🧩 **HTML5** — Estrutura das páginas  
-- 🎨 **CSS3** — Estilos (layout responsivo, utilitários)  
-- ⚙️ **JavaScript (Vanilla)** — Lógica de interação no navegador  
-- ☕ **Java** — Código complementar no repositório (ex.: exercícios/protótipos CLI)  
+- **Linguagem/Plataforma:** Java (JDK 8+ ou 11+)
+- **Web framework:** JSF (Facelets)
+- **UI:** PrimeFaces, BootFaces (componentes e integração visual com Bootstrap)
+- **Persistência:** Hibernate (JPA)
+- **Banco de dados:** (adicione o que estiver usando — ex.: MySQL / PostgreSQL / H2)
+- **Servidor de aplicação/servlet:** Tomcat / Payara / WildFly (escolha o que você usa)
 
-> As linguagens presentes no repositório são **CSS**, **JavaScript**, **Java** e **HTML**, conforme detecção do GitHub. :contentReference[oaicite:2]{index=2}
+> Observação: PrimeFaces e BootFaces podem coexistir, mas **alinha as versões do JSF/Jakarta Faces** de acordo com o servidor escolhido (evita conflitos de namespace).
 
 ---
 
